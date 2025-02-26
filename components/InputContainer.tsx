@@ -1,9 +1,10 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import AmountInput from "./AmountInput";
 import CurrencyInput from "./CurrencyInput";
+import { Colors } from "../constants/Colors";
 
-export default function Inputs() {
+export default function InputContainer() {
   return (
     <View style={styles.container}>
       <AmountInput />
@@ -14,7 +15,7 @@ export default function Inputs() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#FAFAFC",
+    backgroundColor: Colors.inputContainerBackground,
     paddingVertical: 30,
     paddingHorizontal: 15,
     borderRadius: 7,

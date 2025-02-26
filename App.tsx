@@ -2,12 +2,13 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "./components/Header";
-import Inputs from "./components/Inputs";
-import Title from "./components/Title";
+import InputContainer from "./components/InputContainer";
+import { Colors } from "./constants/Colors";
+import { FontSize } from "./constants/FontSize";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,8 +27,8 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <Title />
-      <Inputs />
+      <Text style={styles.title}>Convert Currency</Text>
+      <InputContainer />
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -36,6 +37,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E9E9F0",
+    backgroundColor: Colors.appBackground,
+  },
+  title: {
+    fontFamily: "Gilroy-Bold",
+    fontSize: FontSize.appTitle,
+    color: Colors.appTitle,
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 25,
   },
 });

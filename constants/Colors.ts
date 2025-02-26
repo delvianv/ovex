@@ -1,0 +1,15 @@
+export const Colors = {
+  appBackground: "#E9E9F0",
+  headerBackground: "#1E222C",
+  appTitle: "#000",
+  modalTitle: "#1B1B21",
+  inputContainerBackground: "#FAFAFC",
+  inputLabel: "#8E8D99",
+  inputBackground: "#FFF",
+  amountText: "#303038",
+  currencyText: "#8E8D99",
+  modalBackground: "#FAFAFC",
+  activeTab: "#5589FF",
+  inactiveTab: "#8E8D99",
+  searchInput: "#8E8D99",
+};

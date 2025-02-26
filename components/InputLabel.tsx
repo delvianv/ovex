@@ -1,5 +1,8 @@
 import { StyleSheet, Text } from "react-native";
 
+import { Colors } from "../constants/Colors";
+import { FontSize } from "../constants/FontSize";
+
 interface LabelProps {
   text: string;
 }
@@ -11,7 +14,7 @@ export default function InputLabel({ text }: LabelProps) {
 const styles = StyleSheet.create({
   label: {
     fontFamily: "Gilroy-Regular",
-    fontSize: 16,
-    color: "#8E8D99",
+    fontSize: FontSize.default,
+    color: Colors.inputLabel,
   },
 });
