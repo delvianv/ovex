@@ -4,4 +4,5 @@ export const FontSize = {
   amountText: 24,
   tabText: 20,
   default: 16,
+  small: 14,
 };

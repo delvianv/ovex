@@ -1,26 +1,21 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import TabButton from "./TabButton";
 
 interface TabProps {
   activeTab: string;
-  setActiveTab: (tab: string) => void;
+  onChangeTab: (tab: string) => void;
 }
 
-export default function TabContainer({ activeTab, setActiveTab }: TabProps) {
+export default function TabContainer({ activeTab, onChangeTab }: TabProps) {
   return (
     <View style={styles.container}>
       <TabButton
         text="Crypto"
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        onChangeTab={onChangeTab}
       />
-      <TabButton
-        text="Fiat"
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      <TabButton text="Fiat" activeTab={activeTab} onChangeTab={onChangeTab} />
     </View>
   );
 }

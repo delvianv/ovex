@@ -1,21 +1,21 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 
 interface ButtonProps {
   text: string;
   activeTab: string;
-  setActiveTab: (tab: string) => void;
+  onChangeTab: (tab: string) => void;
 }
 
 export default function TabButton({
   text,
   activeTab,
-  setActiveTab,
+  onChangeTab,
 }: ButtonProps) {
   return (
-    <Pressable onPress={() => setActiveTab(text)}>
+    <Pressable onPress={() => onChangeTab(text)}>
       <Text style={activeTab === text ? styles.activeTab : styles.inactiveTab}>
         {text}
       </Text>
@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
   activeTab: {
     fontFamily: "Gilroy-Bold",
     fontSize: FontSize.tabText,
-    color: Colors.activeTab,
+    color: Color.activeTab,
     borderBottomWidth: 2,
-    borderBottomColor: Colors.activeTab,
+    borderBottomColor: Color.activeTab,
   },
   inactiveTab: {
     fontFamily: "Gilroy-Regular",
     fontSize: FontSize.tabText,
-    color: Colors.inactiveTab,
+    color: Color.inactiveTab,
   },
 });

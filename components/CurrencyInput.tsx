@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import InputLabel from "./InputLabel";
 import SelectCurrency from "./SelectCurrency";
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 
 interface InputProps {
@@ -21,7 +21,7 @@ export default function CurrencyInput({ text }: InputProps) {
         <View style={styles.inputContainer}>
           <Text style={styles.input}>Select a Source Currency</Text>
           <Image
-            source={require("../assets/icons/arrow.svg")}
+            source={require("../assets/icons/arrow-down.svg")}
             style={styles.icon}
           />
         </View>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   inputContainer: {
-    backgroundColor: Colors.inputBackground,
+    backgroundColor: Color.inputBackground,
     height: 44,
     flexDirection: "row",
     alignItems: "center",
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: "Gilroy-Regular",
     fontSize: FontSize.default,
-    color: Colors.currencyText,
+    color: Color.currencyText,
   },
   icon: {
     width: 24,

@@ -1,4 +1,4 @@
-export const Colors = {
+export const Color = {
   appBackground: "#E9E9F0",
   headerBackground: "#1E222C",
   appTitle: "#000",
@@ -12,4 +12,6 @@ export const Colors = {
   activeTab: "#5589FF",
   inactiveTab: "#8E8D99",
   searchInput: "#8E8D99",
+  currencyID: "#303038",
+  currencyName: "#8E8D99",
 };

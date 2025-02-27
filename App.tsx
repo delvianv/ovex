@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "./components/Header";
 import InputContainer from "./components/InputContainer";
-import { Colors } from "./constants/Colors";
+import { Color } from "./constants/Color";
 import { FontSize } from "./constants/FontSize";
 
 SplashScreen.preventAutoHideAsync();
@@ -37,12 +37,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.appBackground,
+    backgroundColor: Color.appBackground,
   },
   title: {
     fontFamily: "Gilroy-Bold",
     fontSize: FontSize.appTitle,
-    color: Colors.appTitle,
+    color: Color.appTitle,
     textAlign: "center",
     marginTop: 50,
     marginBottom: 25,

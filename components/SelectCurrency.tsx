@@ -1,11 +1,12 @@
-import { Image } from "expo-image";
-import { useState } from "react";
-import { Modal, StyleSheet, Text, TextInput, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Modal, StyleSheet, Text, View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 
 import CloseButton from "./CloseButton";
+import CurrencyItem from "./CurrencyItem";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 
 interface ModalProps {
@@ -13,11 +14,62 @@ interface ModalProps {
   setVisible: (visible: boolean) => void;
 }
 
+interface Currency {
+  id: string;
+  name: string;
+  type: string;
+  icon_url: string;
+}
+
 export default function SelectCurrency({ visible, setVisible }: ModalProps) {
   const [activeTab, setActiveTab] = useState("Crypto");
+  const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [search, setSearch] = useState("");
+  const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      const response = await fetch("https://www.ovex.io/api/v2/currencies");
+      const data: Currency[] = await response.json();
+      setCurrencies(data);
+      setFilteredCurrencies(
+        data.filter((currency) => currency.type === "coin")
+      );
+    };
+
+    fetchCurrencies();
+  }, []);
 
   const hide = () => {
     setVisible(false);
+  };
+
+  const onChangeTab = (tab: string) => {
+    setActiveTab(tab);
+
+    const filteredByType = currencies.filter((currency) =>
+      tab === "Crypto" ? currency.type === "coin" : currency.type === "fiat"
+    );
+    setFilteredCurrencies(
+      filteredByType.filter((currency) =>
+        currency.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  };
+
+  const onSearch = (query: string) => {
+    setSearch(query);
+
+    const filteredByType = currencies.filter((currency) =>
+      activeTab === "Crypto"
+        ? currency.type === "coin"
+        : currency.type === "fiat"
+    );
+    setFilteredCurrencies(
+      filteredByType.filter((currency) =>
+        currency.name.toLowerCase().includes(query.toLowerCase())
+      )
+    );
   };
 
   return (
@@ -30,8 +82,17 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
       <View style={styles.container}>
         <CloseButton hideModal={hide} />
         <Text style={styles.title}>Select Currency</Text>
-        <TabContainer activeTab={activeTab} setActiveTab={setActiveTab} />
-        <SearchInput activeTab={activeTab} />
+        <TabContainer activeTab={activeTab} onChangeTab={onChangeTab} />
+        <SearchInput
+          activeTab={activeTab}
+          search={search}
+          setSearch={onSearch}
+        />
+        <FlashList
+          data={filteredCurrencies}
+          renderItem={({ item }) => <CurrencyItem item={item} />}
+          estimatedItemSize={39}
+        />
       </View>
     </Modal>
   );
@@ -40,7 +101,7 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.modalBackground,
+    backgroundColor: Color.modalBackground,
     marginTop: 40,
     paddingTop: 15,
     paddingHorizontal: 15,
@@ -50,6 +111,6 @@ const styles = StyleSheet.create({
     fontFamily: "Gilroy-Bold",
     fontSize: FontSize.modalTitle,
     textAlign: "center",
-    color: Colors.modalTitle,
+    color: Color.modalTitle,
   },
 });

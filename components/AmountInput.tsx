@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import InputLabel from "./InputLabel";
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 
 export default function AmountInput() {
@@ -11,7 +11,7 @@ export default function AmountInput() {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="$0"
-          placeholderTextColor={Colors.amountText}
+          placeholderTextColor={Color.amountText}
           inputMode="numeric"
           style={styles.input}
         />
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 42,
   },
   inputContainer: {
-    backgroundColor: Colors.inputBackground,
+    backgroundColor: Color.inputBackground,
     height: 56,
     flexDirection: "row",
     alignItems: "center",
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
   currency: {
     fontFamily: "Gilroy-Bold",
     fontSize: FontSize.amountText,
-    color: Colors.amountText,
+    color: Color.amountText,
   },
 });

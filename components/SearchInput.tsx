@@ -1,14 +1,20 @@
 import { Image } from "expo-image";
 import { StyleSheet, TextInput, View } from "react-native";
 
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 
 interface SearchProps {
   activeTab: string;
+  search: string;
+  setSearch: (query: string) => void;
 }
 
-export default function SearchInput({ activeTab }: SearchProps) {
+export default function SearchInput({
+  activeTab,
+  search,
+  setSearch,
+}: SearchProps) {
   return (
     <View style={styles.container}>
       <Image
@@ -17,7 +23,9 @@ export default function SearchInput({ activeTab }: SearchProps) {
       />
       <TextInput
         placeholder={`Search ${activeTab}`}
-        placeholderTextColor={Colors.searchInput}
+        placeholderTextColor={Color.searchInput}
+        value={search}
+        onChangeText={setSearch}
         style={styles.input}
       />
     </View>
@@ -28,10 +36,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.inputBackground,
+    backgroundColor: Color.inputBackground,
     paddingHorizontal: 8,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.searchInput,
+    borderBottomColor: Color.searchInput,
   },
   icon: {
     width: 16,
@@ -40,6 +48,6 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Gilroy-Regular",
     fontSize: FontSize.default,
-    color: Colors.searchInput,
+    color: Color.searchInput,
   },
 });

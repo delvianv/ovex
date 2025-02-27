@@ -1,7 +1,7 @@
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 
-import { Colors } from "../constants/Colors";
+import { Color } from "../constants/Color";
 
 export default function Header() {
   return (
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: "center",
     paddingVertical: 10,
-    backgroundColor: Colors.headerBackground,
+    backgroundColor: Color.headerBackground,
   },
   logo: {
     width: 75,
