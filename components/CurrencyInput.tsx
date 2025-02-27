@@ -2,24 +2,43 @@ import { Image } from "expo-image";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
+import CurrencyName from "./CurrencyName";
 import InputLabel from "./InputLabel";
 import SelectCurrency from "./SelectCurrency";
 import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
+import { Currency } from "../App";
 
 interface InputProps {
+  label: string;
   text: string;
+  currency: Currency | undefined;
+  setCurrency: (currency: Currency) => void;
 }
 
-export default function CurrencyInput({ text }: InputProps) {
+export default function CurrencyInput({
+  label,
+  text,
+  currency,
+  setCurrency,
+}: InputProps) {
   const [selectCurrencyVisible, setSelectCurrencyVisible] = useState(false);
 
   return (
     <View style={styles.container}>
-      <InputLabel text={text} />
+      <InputLabel text={label} />
       <Pressable onPress={() => setSelectCurrencyVisible(true)}>
         <View style={styles.inputContainer}>
-          <Text style={styles.input}>Select a Source Currency</Text>
+          {currency ? (
+            <CurrencyName
+              id={currency.id}
+              name={currency.name}
+              icon={currency.icon_url}
+              style="main"
+            />
+          ) : (
+            <Text style={styles.input}>{text}</Text>
+          )}
           <Image
             source={require("../assets/icons/arrow-down.svg")}
             style={styles.icon}
@@ -29,6 +48,7 @@ export default function CurrencyInput({ text }: InputProps) {
       <SelectCurrency
         visible={selectCurrencyVisible}
         setVisible={setSelectCurrencyVisible}
+        setCurrency={setCurrency}
       />
     </View>
   );

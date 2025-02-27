@@ -4,18 +4,22 @@ import TabButton from "./TabButton";
 
 interface TabProps {
   activeTab: string;
-  onChangeTab: (tab: string) => void;
+  handleChangeTab: (tab: string) => void;
 }
 
-export default function TabContainer({ activeTab, onChangeTab }: TabProps) {
+export default function TabContainer({ activeTab, handleChangeTab }: TabProps) {
   return (
     <View style={styles.container}>
       <TabButton
         text="Crypto"
         activeTab={activeTab}
-        onChangeTab={onChangeTab}
+        handleChangeTab={handleChangeTab}
       />
-      <TabButton text="Fiat" activeTab={activeTab} onChangeTab={onChangeTab} />
+      <TabButton
+        text="Fiat"
+        activeTab={activeTab}
+        handleChangeTab={handleChangeTab}
+      />
     </View>
   );
 }

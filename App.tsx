@@ -1,8 +1,8 @@
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "./components/Header";
@@ -12,11 +12,20 @@ import { FontSize } from "./constants/FontSize";
 
 SplashScreen.preventAutoHideAsync();
 
+export interface Currency {
+  id: string;
+  name: string;
+  type: string;
+  icon_url: string;
+}
+
 export default function App() {
   const [loaded, error] = useFonts({
     "Gilroy-Regular": require("./assets/fonts/gilroy/Gilroy-Regular.ttf"),
     "Gilroy-Bold": require("./assets/fonts/gilroy/Gilroy-Bold.ttf"),
   });
+  const [sourceCurrency, setSourceCurrency] = useState<Currency | undefined>();
+  const [destCurrency, setDestCurrency] = useState<Currency | undefined>();
 
   useEffect(() => {
     if (loaded || error) {
@@ -25,12 +34,17 @@ export default function App() {
   }, [loaded, error]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header />
       <Text style={styles.title}>Convert Currency</Text>
-      <InputContainer />
+      <InputContainer
+        sourceCurrency={sourceCurrency}
+        setSourceCurrency={setSourceCurrency}
+        destCurrency={destCurrency}
+        setDestCurrency={setDestCurrency}
+      />
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   );
 }
 

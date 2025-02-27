@@ -7,13 +7,13 @@ import { FontSize } from "../constants/FontSize";
 interface SearchProps {
   activeTab: string;
   search: string;
-  setSearch: (query: string) => void;
+  handleSearch: (query: string) => void;
 }
 
 export default function SearchInput({
   activeTab,
   search,
-  setSearch,
+  handleSearch,
 }: SearchProps) {
   return (
     <View style={styles.container}>
@@ -25,7 +25,7 @@ export default function SearchInput({
         placeholder={`Search ${activeTab}`}
         placeholderTextColor={Color.searchInput}
         value={search}
-        onChangeText={setSearch}
+        onChangeText={handleSearch}
         style={styles.input}
       />
     </View>

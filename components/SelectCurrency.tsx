@@ -8,20 +8,19 @@ import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
+import { Currency } from "../App";
 
 interface ModalProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  setCurrency: (currency: Currency) => void;
 }
 
-interface Currency {
-  id: string;
-  name: string;
-  type: string;
-  icon_url: string;
-}
-
-export default function SelectCurrency({ visible, setVisible }: ModalProps) {
+export default function SelectCurrency({
+  visible,
+  setVisible,
+  setCurrency,
+}: ModalProps) {
   const [activeTab, setActiveTab] = useState("Crypto");
   const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [search, setSearch] = useState("");
@@ -44,7 +43,7 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
     setVisible(false);
   };
 
-  const onChangeTab = (tab: string) => {
+  const handleChangeTab = (tab: string) => {
     setActiveTab(tab);
 
     const filteredByType = currencies.filter((currency) =>
@@ -57,7 +56,7 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
     );
   };
 
-  const onSearch = (query: string) => {
+  const handleSearch = (query: string) => {
     setSearch(query);
 
     const filteredByType = currencies.filter((currency) =>
@@ -72,6 +71,11 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
     );
   };
 
+  const handleSelectCurrency = (currency: Currency) => {
+    setCurrency(currency);
+    hide();
+  };
+
   return (
     <Modal
       visible={visible}
@@ -82,15 +86,20 @@ export default function SelectCurrency({ visible, setVisible }: ModalProps) {
       <View style={styles.container}>
         <CloseButton hideModal={hide} />
         <Text style={styles.title}>Select Currency</Text>
-        <TabContainer activeTab={activeTab} onChangeTab={onChangeTab} />
+        <TabContainer activeTab={activeTab} handleChangeTab={handleChangeTab} />
         <SearchInput
           activeTab={activeTab}
           search={search}
-          setSearch={onSearch}
+          handleSearch={handleSearch}
         />
         <FlashList
           data={filteredCurrencies}
-          renderItem={({ item }) => <CurrencyItem item={item} />}
+          renderItem={({ item }) => (
+            <CurrencyItem
+              item={item}
+              handleSelectCurrency={handleSelectCurrency}
+            />
+          )}
           estimatedItemSize={39}
         />
       </View>

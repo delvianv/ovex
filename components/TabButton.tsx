@@ -6,16 +6,16 @@ import { FontSize } from "../constants/FontSize";
 interface ButtonProps {
   text: string;
   activeTab: string;
-  onChangeTab: (tab: string) => void;
+  handleChangeTab: (tab: string) => void;
 }
 
 export default function TabButton({
   text,
   activeTab,
-  onChangeTab,
+  handleChangeTab,
 }: ButtonProps) {
   return (
-    <Pressable onPress={() => onChangeTab(text)}>
+    <Pressable onPress={() => handleChangeTab(text)}>
       <Text style={activeTab === text ? styles.activeTab : styles.inactiveTab}>
         {text}
       </Text>
