@@ -34,7 +34,7 @@ export default function App() {
   }, [loaded, error]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <Text style={styles.title}>Convert Currency</Text>
       <InputContainer
@@ -44,7 +44,7 @@ export default function App() {
         setDestCurrency={setDestCurrency}
       />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 

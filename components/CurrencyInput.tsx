@@ -14,6 +14,7 @@ interface InputProps {
   text: string;
   currency: Currency | undefined;
   setCurrency: (currency: Currency) => void;
+  sourceCurrencyID?: string;
 }
 
 export default function CurrencyInput({
@@ -21,6 +22,7 @@ export default function CurrencyInput({
   text,
   currency,
   setCurrency,
+  sourceCurrencyID,
 }: InputProps) {
   const [selectCurrencyVisible, setSelectCurrencyVisible] = useState(false);
 
@@ -48,7 +50,9 @@ export default function CurrencyInput({
       <SelectCurrency
         visible={selectCurrencyVisible}
         setVisible={setSelectCurrencyVisible}
+        currency={currency}
         setCurrency={setCurrency}
+        sourceCurrencyID={sourceCurrencyID}
       />
     </View>
   );

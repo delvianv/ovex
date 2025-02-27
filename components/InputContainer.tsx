@@ -34,6 +34,7 @@ export default function InputContainer({
             text="Select a Destination Currency"
             currency={destCurrency}
             setCurrency={setDestCurrency}
+            sourceCurrencyID={sourceCurrency.id}
           />
         )}
       </View>

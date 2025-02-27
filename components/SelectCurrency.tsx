@@ -6,38 +6,72 @@ import CloseButton from "./CloseButton";
 import CurrencyItem from "./CurrencyItem";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
+import { API } from "../constants/API";
 import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
 import { Currency } from "../App";
 
+interface Market {
+  base_currency: string;
+  quote_currency: string;
+}
+
 interface ModalProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
+  currency: Currency | undefined;
   setCurrency: (currency: Currency) => void;
+  sourceCurrencyID?: string;
 }
 
 export default function SelectCurrency({
   visible,
   setVisible,
+  currency,
   setCurrency,
+  sourceCurrencyID,
 }: ModalProps) {
   const [activeTab, setActiveTab] = useState("Crypto");
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+  const [markets, setMarkets] = useState<Market[]>([]);
   const [search, setSearch] = useState("");
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
 
   useEffect(() => {
     const fetchCurrencies = async () => {
-      const response = await fetch("https://www.ovex.io/api/v2/currencies");
+      const response = await fetch(API.currencies);
       const data: Currency[] = await response.json();
-      setCurrencies(data);
+
+      if (!sourceCurrencyID) {
+        setCurrencies(data);
+        setFilteredCurrencies(
+          data.filter((currency) => currency.type === "coin")
+        );
+      } else {
+        fetchMarkets(data);
+      }
+    };
+
+    const fetchMarkets = async (currencies: Currency[]) => {
+      const response = await fetch(API.markets);
+      const data: Market[] = await response.json();
+      const validMarkets = data.filter(
+        (market) => market.base_currency === sourceCurrencyID
+      );
+      const validCurrencyIDs = validMarkets.map(
+        (market) => market.quote_currency
+      );
+      const validCurrencies = currencies.filter((currency) =>
+        validCurrencyIDs.includes(currency.id)
+      );
+      setCurrencies(validCurrencies);
       setFilteredCurrencies(
-        data.filter((currency) => currency.type === "coin")
+        validCurrencies.filter((currency) => currency.type === "coin")
       );
     };
 
     fetchCurrencies();
-  }, []);
+  }, [sourceCurrencyID]);
 
   const hide = () => {
     setVisible(false);
