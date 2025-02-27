@@ -17,6 +17,7 @@ export interface Currency {
   name: string;
   type: string;
   icon_url: string;
+  symbol: string;
 }
 
 export default function App() {

@@ -3,19 +3,25 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import InputLabel from "./InputLabel";
 import { Color } from "../constants/Color";
 import { FontSize } from "../constants/FontSize";
+import { Currency } from "../App";
 
-export default function AmountInput() {
+interface InputProps {
+  currency: Currency | undefined;
+}
+
+export default function AmountInput({ currency }: InputProps) {
   return (
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />
       <View style={styles.inputContainer}>
+        <Text style={styles.currency}>{currency ? currency.symbol : "$"}</Text>
         <TextInput
-          placeholder="$0"
+          placeholder="0"
           placeholderTextColor={Color.amountText}
           inputMode="numeric"
-          style={styles.input}
+          style={[styles.currency, styles.input]}
         />
-        <Text style={styles.currency}>USD</Text>
+        <Text style={styles.currency}>{currency ? currency.id : "usd"}</Text>
       </View>
     </View>
   );
@@ -35,14 +41,13 @@ const styles = StyleSheet.create({
     elevation: 1,
     paddingHorizontal: 15,
   },
-  input: {
-    flex: 1,
-    fontFamily: "Gilroy-Bold",
-    fontSize: FontSize.amountText,
-  },
   currency: {
     fontFamily: "Gilroy-Bold",
     fontSize: FontSize.amountText,
     color: Color.amountText,
+    textTransform: "uppercase",
+  },
+  input: {
+    flex: 1,
   },
 });

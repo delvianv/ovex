@@ -20,7 +20,7 @@ export default function InputContainer({
 }: ContainerProps) {
   return (
     <View style={styles.container}>
-      <AmountInput />
+      <AmountInput currency={sourceCurrency} />
       <View style={styles.currencyInput}>
         <CurrencyInput
           label="SOURCE CURRENCY"
