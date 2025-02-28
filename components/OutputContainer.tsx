@@ -11,6 +11,7 @@ interface OutputProps {
   amount: number;
   sourceCurrency: Currency;
   destCurrency: Currency;
+  newAmount: boolean;
 }
 
 interface Quote {
@@ -27,6 +28,7 @@ export default function OutputContainer({
   amount,
   sourceCurrency,
   destCurrency,
+  newAmount,
 }: OutputProps) {
   const [quote, setQuote] = useState<Quote>();
 
@@ -44,7 +46,7 @@ export default function OutputContainer({
     };
 
     fetchQuote();
-  }, [amount, sourceCurrency, destCurrency]);
+  }, [newAmount, sourceCurrency, destCurrency]);
 
   return (
     <>

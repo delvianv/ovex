@@ -10,6 +10,8 @@ interface InputProps {
   setAmount: (amount: number) => void;
   sourceCurrency: Currency | undefined;
   destCurrency: Currency | undefined;
+  newAmount: boolean;
+  setNewAmount: (newAmount: boolean) => void;
 }
 
 export default function AmountInput({
@@ -17,6 +19,8 @@ export default function AmountInput({
   setAmount,
   sourceCurrency,
   destCurrency,
+  newAmount,
+  setNewAmount,
 }: InputProps) {
   const handleTextChanged = (text: string) => {
     const amount = parseFloat(text);
@@ -40,6 +44,7 @@ export default function AmountInput({
           onChangeText={handleTextChanged}
           inputMode="numeric"
           editable={Boolean(sourceCurrency) && Boolean(destCurrency)}
+          onSubmitEditing={() => setNewAmount(!newAmount)}
           style={[styles.currency, styles.input]}
         />
         <Text style={styles.currency}>

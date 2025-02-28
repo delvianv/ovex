@@ -11,6 +11,8 @@ interface ContainerProps {
   setSourceCurrency: (currency: Currency) => void;
   destCurrency: Currency | undefined;
   setDestCurrency: (currency: Currency) => void;
+  newAmount: boolean;
+  setNewAmount: (newAmount: boolean) => void;
 }
 
 export default function InputContainer({
@@ -20,6 +22,8 @@ export default function InputContainer({
   setSourceCurrency,
   destCurrency,
   setDestCurrency,
+  newAmount,
+  setNewAmount,
 }: ContainerProps) {
   return (
     <>
@@ -28,6 +32,8 @@ export default function InputContainer({
         setAmount={setAmount}
         sourceCurrency={sourceCurrency}
         destCurrency={destCurrency}
+        newAmount={newAmount}
+        setNewAmount={setNewAmount}
       />
       <View style={styles.currencyInput}>
         <CurrencyInput

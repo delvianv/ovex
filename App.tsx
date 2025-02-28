@@ -30,6 +30,7 @@ export default function App() {
   const [amount, setAmount] = useState(0);
   const [sourceCurrency, setSourceCurrency] = useState<Currency | undefined>();
   const [destCurrency, setDestCurrency] = useState<Currency | undefined>();
+  const [newAmount, setNewAmount] = useState(false);
 
   useEffect(() => {
     if (loaded || error) {
@@ -49,12 +50,15 @@ export default function App() {
           setSourceCurrency={setSourceCurrency}
           destCurrency={destCurrency}
           setDestCurrency={setDestCurrency}
+          newAmount={newAmount}
+          setNewAmount={setNewAmount}
         />
         {sourceCurrency && destCurrency && (
           <OutputContainer
             amount={amount}
             sourceCurrency={sourceCurrency}
             destCurrency={destCurrency}
+            newAmount={newAmount}
           />
         )}
       </View>
