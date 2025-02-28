@@ -19,13 +19,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "delvian.ovex"
     },
     "web": {
       "favicon": "./assets/icons/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c55fab02-606d-414d-85f6-cf94bbfaf70d"
+      }
+    }
   }
 }
