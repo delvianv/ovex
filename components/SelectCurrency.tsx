@@ -19,21 +19,18 @@ interface Market {
 interface ModalProps {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  currency: Currency | undefined;
   setCurrency: (currency: Currency) => void;
-  sourceCurrencyID?: string;
+  sourceCurrency?: Currency;
 }
 
 export default function SelectCurrency({
   visible,
   setVisible,
-  currency,
   setCurrency,
-  sourceCurrencyID,
+  sourceCurrency,
 }: ModalProps) {
   const [activeTab, setActiveTab] = useState("Crypto");
   const [currencies, setCurrencies] = useState<Currency[]>([]);
-  const [markets, setMarkets] = useState<Market[]>([]);
   const [search, setSearch] = useState("");
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
 
@@ -42,7 +39,7 @@ export default function SelectCurrency({
       const response = await fetch(API.currencies);
       const data: Currency[] = await response.json();
 
-      if (!sourceCurrencyID) {
+      if (!sourceCurrency) {
         setCurrencies(data);
         setFilteredCurrencies(
           data.filter((currency) => currency.type === "coin")
@@ -56,7 +53,7 @@ export default function SelectCurrency({
       const response = await fetch(API.markets);
       const data: Market[] = await response.json();
       const validMarkets = data.filter(
-        (market) => market.base_currency === sourceCurrencyID
+        (market) => market.base_currency === sourceCurrency?.id
       );
       const validCurrencyIDs = validMarkets.map(
         (market) => market.quote_currency
@@ -71,7 +68,7 @@ export default function SelectCurrency({
     };
 
     fetchCurrencies();
-  }, [sourceCurrencyID]);
+  }, [sourceCurrency]);
 
   const hide = () => {
     setVisible(false);

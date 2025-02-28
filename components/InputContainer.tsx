@@ -2,10 +2,11 @@ import { StyleSheet, View } from "react-native";
 
 import AmountInput from "./AmountInput";
 import CurrencyInput from "./CurrencyInput";
-import { Color } from "../constants/Color";
 import { Currency } from "../App";
 
 interface ContainerProps {
+  amount: number;
+  setAmount: (amount: number) => void;
   sourceCurrency: Currency | undefined;
   setSourceCurrency: (currency: Currency) => void;
   destCurrency: Currency | undefined;
@@ -13,14 +14,20 @@ interface ContainerProps {
 }
 
 export default function InputContainer({
+  amount,
+  setAmount,
   sourceCurrency,
   setSourceCurrency,
   destCurrency,
   setDestCurrency,
 }: ContainerProps) {
   return (
-    <View style={styles.container}>
-      <AmountInput currency={sourceCurrency} />
+    <>
+      <AmountInput
+        amount={amount}
+        setAmount={setAmount}
+        currency={sourceCurrency}
+      />
       <View style={styles.currencyInput}>
         <CurrencyInput
           label="SOURCE CURRENCY"
@@ -34,21 +41,15 @@ export default function InputContainer({
             text="Select a Destination Currency"
             currency={destCurrency}
             setCurrency={setDestCurrency}
-            sourceCurrencyID={sourceCurrency.id}
+            sourceCurrency={sourceCurrency}
           />
         )}
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Color.inputContainerBackground,
-    paddingVertical: 30,
-    paddingHorizontal: 15,
-    borderRadius: 7,
-  },
   currencyInput: {
     gap: 30,
   },

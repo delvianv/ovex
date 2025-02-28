@@ -6,18 +6,24 @@ import { FontSize } from "../constants/FontSize";
 import { Currency } from "../App";
 
 interface InputProps {
+  amount: number;
+  setAmount: (amount: number) => void;
   currency: Currency | undefined;
 }
 
-export default function AmountInput({ currency }: InputProps) {
+export default function AmountInput({
+  amount,
+  setAmount,
+  currency,
+}: InputProps) {
   return (
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />
       <View style={styles.inputContainer}>
         <Text style={styles.currency}>{currency ? currency.symbol : "$"}</Text>
         <TextInput
-          placeholder="0"
-          placeholderTextColor={Color.amountText}
+          value={amount.toString()}
+          onChangeText={(text) => setAmount(parseFloat(text))}
           inputMode="numeric"
           style={[styles.currency, styles.input]}
         />
@@ -30,7 +36,6 @@ export default function AmountInput({ currency }: InputProps) {
 const styles = StyleSheet.create({
   container: {
     gap: 8,
-    marginBottom: 42,
   },
   inputContainer: {
     backgroundColor: Color.inputBackground,

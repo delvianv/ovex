@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "./components/Header";
 import InputContainer from "./components/InputContainer";
+import OutputContainer from "./components/OutputContainer";
 import { Color } from "./constants/Color";
 import { FontSize } from "./constants/FontSize";
 
@@ -18,6 +19,7 @@ export interface Currency {
   type: string;
   icon_url: string;
   symbol: string;
+  display_precision: number;
 }
 
 export default function App() {
@@ -25,6 +27,7 @@ export default function App() {
     "Gilroy-Regular": require("./assets/fonts/gilroy/Gilroy-Regular.ttf"),
     "Gilroy-Bold": require("./assets/fonts/gilroy/Gilroy-Bold.ttf"),
   });
+  const [amount, setAmount] = useState(0);
   const [sourceCurrency, setSourceCurrency] = useState<Currency | undefined>();
   const [destCurrency, setDestCurrency] = useState<Currency | undefined>();
 
@@ -38,12 +41,23 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Header />
       <Text style={styles.title}>Convert Currency</Text>
-      <InputContainer
-        sourceCurrency={sourceCurrency}
-        setSourceCurrency={setSourceCurrency}
-        destCurrency={destCurrency}
-        setDestCurrency={setDestCurrency}
-      />
+      <View style={styles.ioContainer}>
+        <InputContainer
+          amount={amount}
+          setAmount={setAmount}
+          sourceCurrency={sourceCurrency}
+          setSourceCurrency={setSourceCurrency}
+          destCurrency={destCurrency}
+          setDestCurrency={setDestCurrency}
+        />
+        {sourceCurrency && destCurrency && (
+          <OutputContainer
+            amount={amount}
+            sourceCurrency={sourceCurrency}
+            destCurrency={destCurrency}
+          />
+        )}
+      </View>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
@@ -53,6 +67,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Color.appBackground,
+  },
+  ioContainer: {
+    backgroundColor: Color.ioContainer,
+    paddingVertical: 30,
+    paddingHorizontal: 15,
+    borderRadius: 7,
+    gap: 42,
   },
   title: {
     fontFamily: "Gilroy-Bold",

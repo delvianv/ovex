@@ -3,7 +3,7 @@ export const Color = {
   headerBackground: "#1E222C",
   appTitle: "#000",
   modalTitle: "#1B1B21",
-  inputContainerBackground: "#FAFAFC",
+  ioContainer: "#FAFAFC",
   inputLabel: "#8E8D99",
   inputBackground: "#FFF",
   amountText: "#303038",
@@ -14,4 +14,5 @@ export const Color = {
   searchInput: "#8E8D99",
   currencyID: "#303038",
   currencyName: "#8E8D99",
+  destAmount: "#1B1B21",
 };
