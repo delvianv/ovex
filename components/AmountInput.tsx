@@ -16,6 +16,16 @@ export default function AmountInput({
   setAmount,
   currency,
 }: InputProps) {
+  const handleTextChanged = (text: string) => {
+    const amount = parseFloat(text);
+
+    if (!isNaN(amount)) {
+      setAmount(amount);
+    } else {
+      setAmount(0);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />
@@ -23,7 +33,7 @@ export default function AmountInput({
         <Text style={styles.currency}>{currency ? currency.symbol : "$"}</Text>
         <TextInput
           value={amount.toString()}
-          onChangeText={(text) => setAmount(parseFloat(text))}
+          onChangeText={handleTextChanged}
           inputMode="numeric"
           style={[styles.currency, styles.input]}
         />

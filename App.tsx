@@ -38,7 +38,7 @@ export default function App() {
   }, [loaded, error]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header />
       <Text style={styles.title}>Convert Currency</Text>
       <View style={styles.ioContainer}>
@@ -59,7 +59,7 @@ export default function App() {
         )}
       </View>
       <StatusBar style="auto" />
-    </SafeAreaView>
+    </View>
   );
 }
 
