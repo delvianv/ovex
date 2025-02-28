@@ -5,15 +5,18 @@ A clean and user-friendly UI for converting currencies
 ## Usage
 
 1. Select a source currency
+
    ![Screenshot 1](assets/images/Screenshot%201.jpg)
    ![Screenshot 2](assets/images/Screenshot%202.jpg)
    ![Screenshot 3](assets/images/Screenshot%203.jpg)
 
 2. Select a destination currency
+
    ![Screenshot 4](assets/images/Screenshot%204.jpg)
    ![Screenshot 5](assets/images/Screenshot%205.jpg)
 
 3. Enter the amount to convert and press enter
+
    ![Screenshot 6](assets/images/Screenshot%206.jpg)
 
 ## Support
