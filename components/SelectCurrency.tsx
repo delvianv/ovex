@@ -36,35 +36,43 @@ export default function SelectCurrency({
 
   useEffect(() => {
     const fetchCurrencies = async () => {
-      const response = await fetch(API.currencies);
-      const data: Currency[] = await response.json();
+      try {
+        const response = await fetch(API.currencies);
+        const data: Currency[] = await response.json();
 
-      if (!sourceCurrency) {
-        setCurrencies(data);
-        setFilteredCurrencies(
-          data.filter((currency) => currency.type === "coin")
-        );
-      } else {
-        fetchMarkets(data);
+        if (!sourceCurrency) {
+          setCurrencies(data);
+          setFilteredCurrencies(
+            data.filter((currency) => currency.type === "coin")
+          );
+        } else {
+          fetchMarkets(data);
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 
     const fetchMarkets = async (currencies: Currency[]) => {
-      const response = await fetch(API.markets);
-      const data: Market[] = await response.json();
-      const validMarkets = data.filter(
-        (market) => market.base_currency === sourceCurrency?.id
-      );
-      const validCurrencyIDs = validMarkets.map(
-        (market) => market.quote_currency
-      );
-      const validCurrencies = currencies.filter((currency) =>
-        validCurrencyIDs.includes(currency.id)
-      );
-      setCurrencies(validCurrencies);
-      setFilteredCurrencies(
-        validCurrencies.filter((currency) => currency.type === "coin")
-      );
+      try {
+        const response = await fetch(API.markets);
+        const data: Market[] = await response.json();
+        const validMarkets = data.filter(
+          (market) => market.base_currency === sourceCurrency?.id
+        );
+        const validCurrencyIDs = validMarkets.map(
+          (market) => market.quote_currency
+        );
+        const validCurrencies = currencies.filter((currency) =>
+          validCurrencyIDs.includes(currency.id)
+        );
+        setCurrencies(validCurrencies);
+        setFilteredCurrencies(
+          validCurrencies.filter((currency) => currency.type === "coin")
+        );
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchCurrencies();

@@ -32,11 +32,15 @@ export default function OutputContainer({
 
   useEffect(() => {
     const fetchQuote = async () => {
-      const response = await fetch(
-        `${API.RFQ}&market=${sourceCurrency.id}${destCurrency.id}&from_amount=${amount}`
-      );
-      const data = await response.json();
-      setQuote(data);
+      try {
+        const response = await fetch(
+          `${API.RFQ}&market=${sourceCurrency.id}${destCurrency.id}&from_amount=${amount}`
+        );
+        const data = await response.json();
+        setQuote(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
 
     fetchQuote();
