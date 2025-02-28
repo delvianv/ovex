@@ -8,13 +8,15 @@ import { Currency } from "../App";
 interface InputProps {
   amount: number;
   setAmount: (amount: number) => void;
-  currency: Currency | undefined;
+  sourceCurrency: Currency | undefined;
+  destCurrency: Currency | undefined;
 }
 
 export default function AmountInput({
   amount,
   setAmount,
-  currency,
+  sourceCurrency,
+  destCurrency,
 }: InputProps) {
   const handleTextChanged = (text: string) => {
     const amount = parseFloat(text);
@@ -30,14 +32,19 @@ export default function AmountInput({
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />
       <View style={styles.inputContainer}>
-        <Text style={styles.currency}>{currency ? currency.symbol : "$"}</Text>
+        <Text style={styles.currency}>
+          {sourceCurrency ? sourceCurrency.symbol : "$"}
+        </Text>
         <TextInput
           value={amount.toString()}
           onChangeText={handleTextChanged}
           inputMode="numeric"
+          editable={Boolean(sourceCurrency) && Boolean(destCurrency)}
           style={[styles.currency, styles.input]}
         />
-        <Text style={styles.currency}>{currency ? currency.id : "usd"}</Text>
+        <Text style={styles.currency}>
+          {sourceCurrency ? sourceCurrency.id : "usd"}
+        </Text>
       </View>
     </View>
   );

@@ -26,7 +26,8 @@ export default function InputContainer({
       <AmountInput
         amount={amount}
         setAmount={setAmount}
-        currency={sourceCurrency}
+        sourceCurrency={sourceCurrency}
+        destCurrency={destCurrency}
       />
       <View style={styles.currencyInput}>
         <CurrencyInput
