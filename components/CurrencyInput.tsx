@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
@@ -7,8 +7,17 @@ import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
 
-export default function CurrencyInput() {
+interface InputProps {
+  label: string;
+}
+
+export default function CurrencyInput({ label }: InputProps) {
   const [selectCurrency, setSelectCurrency] = useState(false);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    setText(label.includes("SOURCE") ? "Source" : "Destination");
+  }, [label]);
 
   const showSelectCurrency = () => setSelectCurrency(true);
   const hideSelectCurrency = () => setSelectCurrency(false);
@@ -17,7 +26,9 @@ export default function CurrencyInput() {
     <>
       <Pressable onPress={showSelectCurrency}>
         <View style={styles.container}>
-          <Text style={styles.currencyInput}>Select a Source Currency</Text>
+          <Text style={styles.currencyInput}>
+            {`Select a ${text} Currency`}
+          </Text>
           <MaterialIcons
             name="keyboard-arrow-down"
             size={24}
