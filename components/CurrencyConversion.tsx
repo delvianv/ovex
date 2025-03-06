@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { API } from "../constants/API";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { AmountContext } from "../contexts/AmountContext";
-import { Market, MarketContext } from "../contexts/MarketContext";
+import { SourceAmount, DestinationAmount } from "../contexts/AmountContext";
 
 import {
   Currency,
@@ -18,32 +16,14 @@ import {
 export default function CurrencyConversion() {
   const sourceCurrencyID = useContext(SourceCurrency);
   const destinationCurrencyID = useContext(DestinationCurrency);
-  const amount = useContext(AmountContext);
   const currencies = useContext(CurrencyContext);
-  const markets = useContext(MarketContext);
+  const sourceAmount = useContext(SourceAmount);
+  const destinationAmount = useContext(DestinationAmount);
 
   const [sourceCurrency, setSourceCurrency] = useState<Currency>();
   const [destinationCurrency, setDestinationCurrency] = useState<Currency>();
-  const [market, setMarket] = useState<Market>();
-  const [quote, setQuote] = useState();
 
   useEffect(() => {
-    if (sourceCurrencyID && destinationCurrencyID) {
-      const market = markets.find(
-        (market) =>
-          market.id.includes(sourceCurrencyID) &&
-          market.id.includes(destinationCurrencyID)
-      );
-      setMarket(market);
-      console.log(market);
-    }
-
-    const fetchQuote = async () => {
-      const response = await fetch(API.RFQ);
-      const data = await response.json();
-      setQuote(data);
-    };
-
     setSourceCurrency(
       currencies.find((currency) => currency.id === sourceCurrencyID)
     );
@@ -51,17 +31,17 @@ export default function CurrencyConversion() {
     setDestinationCurrency(
       currencies.find((currency) => currency.id === destinationCurrencyID)
     );
-  }, [sourceCurrencyID, destinationCurrencyID, amount]);
+  }, [sourceCurrencyID, destinationCurrencyID]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.sourceOutput}>
-        {sourceCurrency
-          ? `${sourceCurrency.symbol}${amount} ${sourceCurrency.name} =`
-          : "$0 US Dollars ="}
+        {sourceCurrency &&
+          `${sourceCurrency.symbol}${sourceAmount} ${sourceCurrency.name} =`}
       </Text>
       <Text style={styles.destinationOutput}>
-        {destinationCurrency ? `0 ${destinationCurrency.name}` : "0 Bitcoin"}
+        {destinationCurrency &&
+          `${destinationAmount} ${destinationCurrency.name}`}
       </Text>
     </View>
   );

@@ -5,7 +5,8 @@ import InputLabel from "./InputLabel";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { AmountContext, SetAmountContext } from "../contexts/AmountContext";
+import { SourceAmount, SetSourceAmount } from "../contexts/AmountContext";
+
 import {
   Currency,
   CurrencyContext,
@@ -13,8 +14,8 @@ import {
 } from "../contexts/CurrencyContext";
 
 export default function AmountInput() {
-  const amount = useContext(AmountContext);
-  const setAmount = useContext(SetAmountContext);
+  const amount = useContext(SourceAmount);
+  const setAmount = useContext(SetSourceAmount);
 
   const currencies = useContext(CurrencyContext);
   const sourceCurrency = useContext(SourceCurrency);
