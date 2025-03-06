@@ -10,28 +10,38 @@ import {
   Currency,
   CurrencyContext,
   SourceCurrency,
+  DestinationCurrency,
 } from "../contexts/CurrencyContext";
 
 export default function CurrencyConversion() {
-  const sourceCurrency = useContext(SourceCurrency);
+  const sourceCurrencyID = useContext(SourceCurrency);
+  const destinationCurrencyID = useContext(DestinationCurrency);
   const amount = useContext(AmountContext);
   const currencies = useContext(CurrencyContext);
 
-  const [currency, setCurrency] = useState<Currency>();
+  const [sourceCurrency, setSourceCurrency] = useState<Currency>();
+  const [destinationCurrency, setDestinationCurrency] = useState<Currency>();
 
   useEffect(() => {
-    setCurrency(currencies.find((currency) => currency.id === sourceCurrency));
-  }, [sourceCurrency]);
+    setSourceCurrency(
+      currencies.find((currency) => currency.id === sourceCurrencyID)
+    );
+
+    setDestinationCurrency(
+      currencies.find((currency) => currency.id === destinationCurrencyID)
+    );
+  }, [sourceCurrencyID, destinationCurrencyID]);
 
   return (
     <View style={styles.container}>
       <Text style={styles.sourceOutput}>
-        {currency
-          ? `${currency.symbol}${amount} ${currency.name}`
-          : "$0 US Dollars"}{" "}
-        =
+        {sourceCurrency
+          ? `${sourceCurrency.symbol}${amount} ${sourceCurrency.name} =`
+          : "$0 US Dollars ="}
       </Text>
-      <Text style={styles.destinationOutput}>0 Bitcoin</Text>
+      <Text style={styles.destinationOutput}>
+        {destinationCurrency ? `0 ${destinationCurrency.name}` : "0 Bitcoin"}
+      </Text>
     </View>
   );
 }
