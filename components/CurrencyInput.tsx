@@ -7,6 +7,7 @@ import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
 import { CurrenciesProvider } from "../contexts/CurrenciesContext";
+import { TabProvider } from "../contexts/TabContext";
 
 interface InputProps {
   label: string;
@@ -38,7 +39,9 @@ export default function CurrencyInput({ label }: InputProps) {
         </View>
       </Pressable>
       <CurrenciesProvider>
-        <SelectCurrency visible={selectCurrency} hide={hideSelectCurrency} />
+        <TabProvider>
+          <SelectCurrency visible={selectCurrency} hide={hideSelectCurrency} />
+        </TabProvider>
       </CurrenciesProvider>
     </>
   );

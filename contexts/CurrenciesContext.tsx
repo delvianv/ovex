@@ -1,4 +1,5 @@
-import { PropsWithChildren, createContext, useState } from "react";
+import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import { API } from "../constants/API";
 
 export interface Currency {
   id: string;
@@ -15,6 +16,16 @@ export const SetCurrenciesContext = createContext(
 
 export function CurrenciesProvider({ children }: PropsWithChildren) {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      const response = await fetch(API.currencies);
+      const data: Currency[] = await response.json();
+      setCurrencies(data);
+    };
+
+    fetchCurrencies();
+  }, []);
 
   return (
     <CurrenciesContext.Provider value={currencies}>

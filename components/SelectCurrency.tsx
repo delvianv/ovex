@@ -1,5 +1,5 @@
 import { BlurView } from "expo-blur";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, StyleSheet, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
@@ -10,12 +10,8 @@ import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { API } from "../constants/API";
 import { Color } from "../constants/Color";
-import { TabProvider } from "../contexts/TabContext";
-
-import {
-  CurrenciesContext,
-  SetCurrenciesContext,
-} from "../contexts/CurrenciesContext";
+import { CurrenciesContext } from "../contexts/CurrenciesContext";
+import { TabContext } from "../contexts/TabContext";
 
 interface ModalProps {
   visible: boolean;
@@ -31,17 +27,16 @@ interface Currency {
 
 export default function SelectCurrency({ visible, hide }: ModalProps) {
   const currencies = useContext(CurrenciesContext);
-  const setCurrencies = useContext(SetCurrenciesContext);
+  const activeTab = useContext(TabContext);
+  const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
 
   useEffect(() => {
-    const fetchCurrencies = async () => {
-      const response = await fetch(API.currencies);
-      const data: Currency[] = await response.json();
-      setCurrencies(data);
-    };
-
-    fetchCurrencies();
-  }, []);
+    setFilteredCurrencies(
+      activeTab === "Crypto"
+        ? currencies.filter((currency) => currency.type === "coin")
+        : currencies.filter((currency) => currency.type === "fiat")
+    );
+  }, [activeTab]);
 
   return (
     <Modal visible={visible} onRequestClose={hide} animationType="slide">
@@ -53,15 +48,13 @@ export default function SelectCurrency({ visible, hide }: ModalProps) {
         <View style={styles.container}>
           <CloseButton onPress={hide} />
           <ModalTitle />
-          <TabProvider>
-            <TabContainer />
-            <SearchInput />
-            <FlashList
-              data={currencies}
-              renderItem={({ item }) => <CurrencyItem id={item.id} />}
-              keyExtractor={(item) => item.id}
-            />
-          </TabProvider>
+          <TabContainer />
+          <SearchInput />
+          <FlashList
+            data={filteredCurrencies}
+            renderItem={({ item }) => <CurrencyItem id={item.id} />}
+            keyExtractor={(item) => item.id}
+          />
         </View>
       </BlurView>
     </Modal>
