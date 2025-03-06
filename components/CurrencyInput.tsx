@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
+import InputLabel from "./InputLabel";
 import SelectCurrency from "./SelectCurrency";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { CurrenciesProvider } from "../contexts/CurrenciesContext";
+import { CurrencyProvider } from "../contexts/CurrencyContext";
 import { SearchProvider } from "../contexts/SearchContext";
 import { TabProvider } from "../contexts/TabContext";
 
@@ -16,21 +17,19 @@ interface InputProps {
 
 export default function CurrencyInput({ label }: InputProps) {
   const [selectCurrency, setSelectCurrency] = useState(false);
-  const [text, setText] = useState("");
-
-  useEffect(() => {
-    setText(label.includes("SOURCE") ? "Source" : "Destination");
-  }, [label]);
 
   const showSelectCurrency = () => setSelectCurrency(true);
   const hideSelectCurrency = () => setSelectCurrency(false);
 
   return (
-    <>
+    <View style={{ gap: 8 }}>
+      <InputLabel text={label} />
       <Pressable onPress={showSelectCurrency}>
         <View style={styles.container}>
           <Text style={styles.currencyInput}>
-            {`Select a ${text} Currency`}
+            {label.includes("SOURCE")
+              ? "Select a Source Currency"
+              : "Select a Destination Currency"}
           </Text>
           <MaterialIcons
             name="keyboard-arrow-down"
@@ -39,7 +38,7 @@ export default function CurrencyInput({ label }: InputProps) {
           />
         </View>
       </Pressable>
-      <CurrenciesProvider>
+      <CurrencyProvider>
         <TabProvider>
           <SearchProvider>
             <SelectCurrency
@@ -48,8 +47,8 @@ export default function CurrencyInput({ label }: InputProps) {
             />
           </SearchProvider>
         </TabProvider>
-      </CurrenciesProvider>
-    </>
+      </CurrencyProvider>
+    </View>
   );
 }
 

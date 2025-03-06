@@ -9,7 +9,7 @@ import ModalTitle from "./ModalTitle";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { Color } from "../constants/Color";
-import { Currency, CurrenciesContext } from "../contexts/CurrenciesContext";
+import { Currency, CurrencyContext } from "../contexts/CurrencyContext";
 import { SearchContext } from "../contexts/SearchContext";
 import { TabContext } from "../contexts/TabContext";
 
@@ -19,7 +19,7 @@ interface ModalProps {
 }
 
 export default function SelectCurrency({ visible, hide }: ModalProps) {
-  const currencies = useContext(CurrenciesContext);
+  const currencies = useContext(CurrencyContext);
   const activeTab = useContext(TabContext);
   const searchQuery = useContext(SearchContext);
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
@@ -36,7 +36,7 @@ export default function SelectCurrency({ visible, hide }: ModalProps) {
     );
 
     setFilteredCurrencies(filteredByName);
-  }, [activeTab, searchQuery]);
+  }, [currencies, activeTab, searchQuery]);
 
   return (
     <Modal visible={visible} onRequestClose={hide} animationType="slide">

@@ -1,14 +1,14 @@
 import { StyleSheet, View } from "react-native";
 
-import CurrencyInputContainer from "./CurrencyInputContainer";
-import SourceInput from "./SourceInput";
+import AmountInput from "./AmountInput";
+import CurrencyInput from "./CurrencyInput";
 
 export default function InputContainer() {
   return (
     <View style={styles.container}>
-      <SourceInput />
-      <CurrencyInputContainer label="SOURCE CURRENCY" />
-      <CurrencyInputContainer label="DESTINATION CURRENCY" />
+      <AmountInput />
+      <CurrencyInput label="SOURCE CURRENCY" />
+      <CurrencyInput label="DESTINATION CURRENCY" />
     </View>
   );
 }

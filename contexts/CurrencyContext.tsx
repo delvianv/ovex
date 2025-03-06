@@ -8,13 +8,10 @@ export interface Currency {
   icon_url: string;
 }
 
-export const CurrenciesContext = createContext<Currency[]>([]);
+export const CurrencyContext = createContext<Currency[]>([]);
+export const SetCurrencyContext = createContext((currencies: Currency[]) => {});
 
-export const SetCurrenciesContext = createContext(
-  (currencies: Currency[]) => {}
-);
-
-export function CurrenciesProvider({ children }: PropsWithChildren) {
+export function CurrencyProvider({ children }: PropsWithChildren) {
   const [currencies, setCurrencies] = useState<Currency[]>([]);
 
   useEffect(() => {
@@ -28,10 +25,10 @@ export function CurrenciesProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <CurrenciesContext.Provider value={currencies}>
-      <SetCurrenciesContext.Provider value={setCurrencies}>
+    <CurrencyContext.Provider value={currencies}>
+      <SetCurrencyContext.Provider value={setCurrencies}>
         {children}
-      </SetCurrenciesContext.Provider>
-    </CurrenciesContext.Provider>
+      </SetCurrencyContext.Provider>
+    </CurrencyContext.Provider>
   );
 }

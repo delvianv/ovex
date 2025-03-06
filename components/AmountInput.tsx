@@ -1,20 +1,24 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
+import InputLabel from "./InputLabel";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
 
 export default function AmountInput() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.amountInput}>$</Text>
-      <TextInput
-        placeholder="0"
-        placeholderTextColor={Color.amountInput}
-        inputMode="numeric"
-        style={[styles.amountInput, { flex: 1 }]}
-      />
-      <Text style={styles.amountInput}>USD</Text>
+    <View style={{ gap: 8 }}>
+      <InputLabel text="SOURCE AMOUNT" />
+      <View style={styles.container}>
+        <Text style={styles.amountInput}>$</Text>
+        <TextInput
+          placeholder="0"
+          placeholderTextColor={Color.amountInput}
+          inputMode="numeric"
+          style={[styles.amountInput, { flex: 1 }]}
+        />
+        <Text style={styles.amountInput}>USD</Text>
+      </View>
     </View>
   );
 }

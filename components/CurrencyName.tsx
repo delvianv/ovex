@@ -5,14 +5,14 @@ import { StyleSheet, Text, View } from "react-native";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { Currency, CurrenciesContext } from "../contexts/CurrenciesContext";
+import { Currency, CurrencyContext } from "../contexts/CurrencyContext";
 
 interface NameProps {
   id: string;
 }
 
 export default function CurrencyName({ id }: NameProps) {
-  const currencies = useContext(CurrenciesContext);
+  const currencies = useContext(CurrencyContext);
   const [currency, setCurrency] = useState<Currency>();
 
   useEffect(() => {
