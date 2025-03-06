@@ -8,9 +8,9 @@ import CurrencyItem from "./CurrencyItem";
 import ModalTitle from "./ModalTitle";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
-import { API } from "../constants/API";
 import { Color } from "../constants/Color";
-import { CurrenciesContext } from "../contexts/CurrenciesContext";
+import { Currency, CurrenciesContext } from "../contexts/CurrenciesContext";
+import { SearchContext } from "../contexts/SearchContext";
 import { TabContext } from "../contexts/TabContext";
 
 interface ModalProps {
@@ -18,25 +18,25 @@ interface ModalProps {
   hide: () => void;
 }
 
-interface Currency {
-  id: string;
-  name: string;
-  type: string;
-  icon_url: string;
-}
-
 export default function SelectCurrency({ visible, hide }: ModalProps) {
   const currencies = useContext(CurrenciesContext);
   const activeTab = useContext(TabContext);
+  const searchQuery = useContext(SearchContext);
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
 
   useEffect(() => {
-    setFilteredCurrencies(
+    const filteredByType = currencies.filter((currency) =>
       activeTab === "Crypto"
-        ? currencies.filter((currency) => currency.type === "coin")
-        : currencies.filter((currency) => currency.type === "fiat")
+        ? currency.type === "coin"
+        : currency.type === "fiat"
     );
-  }, [activeTab]);
+
+    const filteredByName = filteredByType.filter((currency) =>
+      currency.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    setFilteredCurrencies(filteredByName);
+  }, [activeTab, searchQuery]);
 
   return (
     <Modal visible={visible} onRequestClose={hide} animationType="slide">
@@ -54,6 +54,7 @@ export default function SelectCurrency({ visible, hide }: ModalProps) {
             data={filteredCurrencies}
             renderItem={({ item }) => <CurrencyItem id={item.id} />}
             keyExtractor={(item) => item.id}
+            estimatedItemSize={40}
           />
         </View>
       </BlurView>

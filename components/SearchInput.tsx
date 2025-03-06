@@ -5,10 +5,13 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
+import { SearchContext, SetSearchContext } from "../contexts/SearchContext";
 import { TabContext } from "../contexts/TabContext";
 
 export default function SearchInput() {
   const activeTab = useContext(TabContext);
+  const query = useContext(SearchContext);
+  const setQuery = useContext(SetSearchContext);
 
   return (
     <View style={styles.container}>
@@ -16,6 +19,8 @@ export default function SearchInput() {
       <TextInput
         placeholder={`Search ${activeTab}`}
         placeholderTextColor={Color.searchInput}
+        value={query}
+        onChangeText={setQuery}
         style={styles.searchInput}
       />
     </View>
