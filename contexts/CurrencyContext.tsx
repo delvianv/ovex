@@ -32,10 +32,15 @@ export function CurrencyProvider({ children }: PropsWithChildren) {
     fetchCurrencies();
   }, []);
 
+  const updateSourceCurrency = (currency: string) => {
+    setSourceCurrency(currency);
+    setDestinationCurrency("");
+  };
+
   return (
     <CurrencyContext.Provider value={currencies}>
       <SourceCurrency.Provider value={sourceCurrency}>
-        <SetSourceCurrency.Provider value={setSourceCurrency}>
+        <SetSourceCurrency.Provider value={updateSourceCurrency}>
           <DestinationCurrency.Provider value={destinationCurrency}>
             <SetDestinationCurrency.Provider value={setDestinationCurrency}>
               {children}

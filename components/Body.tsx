@@ -5,14 +5,17 @@ import OutputContainer from "./OutputContainer";
 import { Color } from "../constants/Color";
 import { AmountProvider } from "../contexts/AmountContext";
 import { CurrencyProvider } from "../contexts/CurrencyContext";
+import { MarketProvider } from "../contexts/MarketContext";
 
 export default function Body() {
   return (
     <View style={styles.container}>
       <CurrencyProvider>
         <AmountProvider>
-          <InputContainer />
-          <OutputContainer />
+          <MarketProvider>
+            <InputContainer />
+            <OutputContainer />
+          </MarketProvider>
         </AmountProvider>
       </CurrencyProvider>
     </View>

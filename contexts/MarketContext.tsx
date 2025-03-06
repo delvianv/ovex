@@ -1,7 +1,8 @@
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import { API } from "../constants/API";
 
-interface Market {
+export interface Market {
+  id: string;
   base_currency: string;
   quote_currency: string;
 }

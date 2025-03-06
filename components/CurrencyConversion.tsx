@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import { API } from "../constants/API";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
 import { AmountContext } from "../contexts/AmountContext";
+import { Market, MarketContext } from "../contexts/MarketContext";
 
 import {
   Currency,
@@ -18,11 +20,30 @@ export default function CurrencyConversion() {
   const destinationCurrencyID = useContext(DestinationCurrency);
   const amount = useContext(AmountContext);
   const currencies = useContext(CurrencyContext);
+  const markets = useContext(MarketContext);
 
   const [sourceCurrency, setSourceCurrency] = useState<Currency>();
   const [destinationCurrency, setDestinationCurrency] = useState<Currency>();
+  const [market, setMarket] = useState<Market>();
+  const [quote, setQuote] = useState();
 
   useEffect(() => {
+    if (sourceCurrencyID && destinationCurrencyID) {
+      const market = markets.find(
+        (market) =>
+          market.id.includes(sourceCurrencyID) &&
+          market.id.includes(destinationCurrencyID)
+      );
+      setMarket(market);
+      console.log(market);
+    }
+
+    const fetchQuote = async () => {
+      const response = await fetch(API.RFQ);
+      const data = await response.json();
+      setQuote(data);
+    };
+
     setSourceCurrency(
       currencies.find((currency) => currency.id === sourceCurrencyID)
     );
@@ -30,7 +51,7 @@ export default function CurrencyConversion() {
     setDestinationCurrency(
       currencies.find((currency) => currency.id === destinationCurrencyID)
     );
-  }, [sourceCurrencyID, destinationCurrencyID]);
+  }, [sourceCurrencyID, destinationCurrencyID, amount]);
 
   return (
     <View style={styles.container}>

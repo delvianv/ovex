@@ -8,7 +8,6 @@ import SelectCurrency from "./SelectCurrency";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { MarketProvider } from "../contexts/MarketContext";
 import { SearchProvider } from "../contexts/SearchContext";
 import { TabProvider } from "../contexts/TabContext";
 
@@ -54,13 +53,11 @@ export default function CurrencyInput({ label }: InputProps) {
       </Pressable>
       <TabProvider>
         <SearchProvider>
-          <MarketProvider>
-            <SelectCurrency
-              visible={selectCurrency}
-              hide={hideSelectCurrency}
-              label={label}
-            />
-          </MarketProvider>
+          <SelectCurrency
+            visible={selectCurrency}
+            hide={hideSelectCurrency}
+            label={label}
+          />
         </SearchProvider>
       </TabProvider>
     </View>
