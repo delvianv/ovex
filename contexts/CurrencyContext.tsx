@@ -7,6 +7,7 @@ export interface Currency {
   type: string;
   icon_url: string;
   symbol: string;
+  display_precision: number;
 }
 
 export const CurrencyContext = createContext<Currency[]>([]);

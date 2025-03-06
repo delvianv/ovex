@@ -8,6 +8,8 @@ import { SourceAmount, SetDestinationAmount } from "../contexts/AmountContext";
 import { MarketContext } from "../contexts/MarketContext";
 
 import {
+  Currency,
+  CurrencyContext,
   SourceCurrency,
   DestinationCurrency,
 } from "../contexts/CurrencyContext";
@@ -19,26 +21,29 @@ interface Quote {
 }
 
 export default function OutputContainer() {
+  const currencies = useContext(CurrencyContext);
   const markets = useContext(MarketContext);
-  const sourceCurrency = useContext(SourceCurrency);
-  const destinationCurrency = useContext(DestinationCurrency);
+  const sourceCurrencyID = useContext(SourceCurrency);
+  const destinationCurrencyID = useContext(DestinationCurrency);
   const sourceAmount = useContext(SourceAmount);
   const setDestinationAmount = useContext(SetDestinationAmount);
 
+  const [sourceCurrency, setSourceCurrency] = useState<Currency>();
+  const [destinationCurrency, setDestinationCurrency] = useState<Currency>();
   const [exchangeRate, setExchangeRate] = useState(0);
 
   useEffect(() => {
     const fetchQuote = async () => {
       const market = markets.find(
         (market) =>
-          market.id.includes(sourceCurrency) &&
-          market.id.includes(destinationCurrency)
+          market.id.includes(sourceCurrencyID) &&
+          market.id.includes(destinationCurrencyID)
       );
 
       if (!market) return;
 
       const api =
-        market.quote_currency === sourceCurrency
+        market.quote_currency === sourceCurrencyID
           ? `${API.RFQ}?market=${market.id}&from_amount=${sourceAmount}`
           : `${API.RFQ}?market=${market.id}&from_amount=${sourceAmount}&side=sell`;
 
@@ -55,12 +60,27 @@ export default function OutputContainer() {
     };
 
     fetchQuote();
-  }, [sourceCurrency, destinationCurrency, sourceAmount]);
+
+    setSourceCurrency(
+      currencies.find((currency) => currency.id === sourceCurrencyID)
+    );
+
+    setDestinationCurrency(
+      currencies.find((currency) => currency.id === destinationCurrencyID)
+    );
+  }, [sourceCurrencyID, destinationCurrencyID, sourceAmount]);
 
   return (
     <View style={styles.container}>
-      <CurrencyConversion />
-      <ExchangeRate rate={exchangeRate} />
+      <CurrencyConversion
+        sourceCurrency={sourceCurrency}
+        destinationCurrency={destinationCurrency}
+      />
+      <ExchangeRate
+        sourceCurrency={sourceCurrency}
+        destinationCurrency={destinationCurrency}
+        rate={exchangeRate}
+      />
     </View>
   );
 }
