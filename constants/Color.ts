@@ -16,4 +16,7 @@ export const Color = {
   modalCurrencyIcon: "#343330",
   activeTab: "#5589FF",
   inactiveTab: "#8E8D99",
+  sourceOutput: "#303038",
+  destinationOutput: "#1B1B21",
+  exchangeRate: "#8E8D99",
 };

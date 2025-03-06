@@ -7,4 +7,7 @@ export const FontFamily = {
   searchInput: "Gilroy-Regular",
   activeTab: "Gilroy-Bold",
   inactiveTab: "Gilroy-Regular",
+  sourceOutput: "Gilroy-Bold",
+  destinationOutput: "Gilroy-Bold",
+  exchangeRate: "Gilroy-Regular",
 };

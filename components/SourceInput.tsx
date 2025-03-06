@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import AmountInput from "./AmountInput";
 import InputLabel from "./InputLabel";
 
-export default function SourceAmount() {
+export default function SourceInput() {
   return (
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />

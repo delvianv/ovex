@@ -6,4 +6,7 @@ export const FontSize = {
   currencyInput: 16,
   searchInput: 16,
   tabs: 20,
+  sourceOutput: 16,
+  destinationOutput: 24,
+  exchangeRate: 16,
 };
