@@ -9,12 +9,14 @@ import ModalTitle from "./ModalTitle";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { Color } from "../constants/Color";
+import { MarketContext } from "../contexts/MarketContext";
 import { SearchContext } from "../contexts/SearchContext";
 import { TabContext } from "../contexts/TabContext";
 
 import {
   Currency,
   CurrencyContext,
+  SourceCurrency,
   SetSourceCurrency,
   SetDestinationCurrency,
 } from "../contexts/CurrencyContext";
@@ -27,17 +29,19 @@ interface ModalProps {
 
 export default function SelectCurrency({ visible, hide, label }: ModalProps) {
   const currencies = useContext(CurrencyContext);
+  const markets = useContext(MarketContext);
   const activeTab = useContext(TabContext);
   const searchQuery = useContext(SearchContext);
+  const sourceCurrency = useContext(SourceCurrency);
 
   const setCurrency = useContext(
     label.includes("SOURCE") ? SetSourceCurrency : SetDestinationCurrency
   );
 
-  const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
+  const [filteredCurrencies, setFilteredCurrencies] = useState<string[]>([]);
 
   useEffect(() => {
-    if (label.includes("SOURCE")) {
+    const filterCurrencies = (currencies: Currency[]) => {
       const filteredByType = currencies.filter((currency) =>
         activeTab === "Crypto"
           ? currency.type === "coin"
@@ -48,9 +52,32 @@ export default function SelectCurrency({ visible, hide, label }: ModalProps) {
         currency.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
-      setFilteredCurrencies(filteredByName);
-    }
-  }, [currencies, activeTab, searchQuery]);
+      setFilteredCurrencies(filteredByName.map((currency) => currency.id));
+    };
+
+    const validCurrencies = () => {
+      const baseMarkets = markets.filter(
+        (market) => market.base_currency === sourceCurrency
+      );
+
+      const quoteMarkets = markets.filter(
+        (market) => market.quote_currency === sourceCurrency
+      );
+
+      const baseCurrencies = quoteMarkets.map((market) => market.base_currency);
+      const quoteCurrencies = baseMarkets.map(
+        (market) => market.quote_currency
+      );
+
+      return currencies.filter(
+        (currency) =>
+          baseCurrencies.includes(currency.id) ||
+          quoteCurrencies.includes(currency.id)
+      );
+    };
+
+    filterCurrencies(label.includes("SOURCE") ? currencies : validCurrencies());
+  }, [currencies, markets, activeTab, searchQuery, sourceCurrency]);
 
   const handlePress = (id: string) => {
     setCurrency(id);
@@ -72,9 +99,8 @@ export default function SelectCurrency({ visible, hide, label }: ModalProps) {
           <FlashList
             data={filteredCurrencies}
             renderItem={({ item }) => (
-              <CurrencyItem id={item.id} onPress={handlePress} />
+              <CurrencyItem id={item} onPress={handlePress} />
             )}
-            keyExtractor={(item) => item.id}
             estimatedItemSize={40}
           />
         </View>

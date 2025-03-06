@@ -9,7 +9,6 @@ export interface Currency {
 }
 
 export const CurrencyContext = createContext<Currency[]>([]);
-export const SetCurrencyContext = createContext((currencies: Currency[]) => {});
 
 export const SourceCurrency = createContext("");
 export const SetSourceCurrency = createContext((id: string) => {});
@@ -34,17 +33,15 @@ export function CurrencyProvider({ children }: PropsWithChildren) {
 
   return (
     <CurrencyContext.Provider value={currencies}>
-      <SetCurrencyContext.Provider value={setCurrencies}>
-        <SourceCurrency.Provider value={sourceCurrency}>
-          <SetSourceCurrency.Provider value={setSourceCurrency}>
-            <DestinationCurrency.Provider value={destinationCurrency}>
-              <SetDestinationCurrency.Provider value={setDestinationCurrency}>
-                {children}
-              </SetDestinationCurrency.Provider>
-            </DestinationCurrency.Provider>
-          </SetSourceCurrency.Provider>
-        </SourceCurrency.Provider>
-      </SetCurrencyContext.Provider>
+      <SourceCurrency.Provider value={sourceCurrency}>
+        <SetSourceCurrency.Provider value={setSourceCurrency}>
+          <DestinationCurrency.Provider value={destinationCurrency}>
+            <SetDestinationCurrency.Provider value={setDestinationCurrency}>
+              {children}
+            </SetDestinationCurrency.Provider>
+          </DestinationCurrency.Provider>
+        </SetSourceCurrency.Provider>
+      </SourceCurrency.Provider>
     </CurrencyContext.Provider>
   );
 }
