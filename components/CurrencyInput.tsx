@@ -1,21 +1,30 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
+import CurrencyName from "./CurrencyName";
 import InputLabel from "./InputLabel";
 import SelectCurrency from "./SelectCurrency";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { CurrencyProvider } from "../contexts/CurrencyContext";
 import { SearchProvider } from "../contexts/SearchContext";
 import { TabProvider } from "../contexts/TabContext";
+
+import {
+  SourceCurrency,
+  DestinationCurrency,
+} from "../contexts/CurrencyContext";
 
 interface InputProps {
   label: string;
 }
 
 export default function CurrencyInput({ label }: InputProps) {
+  const currency = useContext(
+    label.includes("SOURCE") ? SourceCurrency : DestinationCurrency
+  );
+
   const [selectCurrency, setSelectCurrency] = useState(false);
 
   const showSelectCurrency = () => setSelectCurrency(true);
@@ -26,28 +35,31 @@ export default function CurrencyInput({ label }: InputProps) {
       <InputLabel text={label} />
       <Pressable onPress={showSelectCurrency}>
         <View style={styles.container}>
-          <Text style={styles.currencyInput}>
-            {label.includes("SOURCE")
-              ? "Select a Source Currency"
-              : "Select a Destination Currency"}
-          </Text>
+          {currency ? (
+            <CurrencyName id={currency} style="home" />
+          ) : (
+            <Text style={styles.currencyInput}>
+              {label.includes("SOURCE")
+                ? "Select a Source Currency"
+                : "Select a Destination Currency"}
+            </Text>
+          )}
           <MaterialIcons
             name="keyboard-arrow-down"
             size={24}
-            color={Color.appCurrencyIcon}
+            color={Color.homeCurrencyIcon}
           />
         </View>
       </Pressable>
-      <CurrencyProvider>
-        <TabProvider>
-          <SearchProvider>
-            <SelectCurrency
-              visible={selectCurrency}
-              hide={hideSelectCurrency}
-            />
-          </SearchProvider>
-        </TabProvider>
-      </CurrencyProvider>
+      <TabProvider>
+        <SearchProvider>
+          <SelectCurrency
+            visible={selectCurrency}
+            hide={hideSelectCurrency}
+            label={label}
+          />
+        </SearchProvider>
+      </TabProvider>
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import CurrencyName from "./CurrencyName";
@@ -6,18 +6,21 @@ import { Color } from "../constants/Color";
 
 interface ItemProps {
   id: string;
+  onPress: (id: string) => void;
 }
 
-export default function CurrencyItem({ id }: ItemProps) {
+export default function CurrencyItem({ id, onPress }: ItemProps) {
   return (
-    <View style={styles.container}>
-      <CurrencyName id={id} />
-      <MaterialIcons
-        name="keyboard-arrow-right"
-        size={15}
-        color={Color.modalCurrencyIcon}
-      />
-    </View>
+    <Pressable onPress={() => onPress(id)}>
+      <View style={styles.container}>
+        <CurrencyName id={id} style="modal" />
+        <MaterialIcons
+          name="keyboard-arrow-right"
+          size={15}
+          color={Color.modalCurrencyIcon}
+        />
+      </View>
+    </Pressable>
   );
 }
 

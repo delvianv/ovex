@@ -9,9 +9,10 @@ import { Currency, CurrencyContext } from "../contexts/CurrencyContext";
 
 interface NameProps {
   id: string;
+  style: string;
 }
 
-export default function CurrencyName({ id }: NameProps) {
+export default function CurrencyName({ id, style }: NameProps) {
   const currencies = useContext(CurrencyContext);
   const [currency, setCurrency] = useState<Currency>();
 
@@ -23,9 +24,16 @@ export default function CurrencyName({ id }: NameProps) {
     <>
       {currency && (
         <View style={styles.container}>
-          <Image source={currency.icon_url} style={styles.currencyIcon} />
-          <Text style={styles.currencyID}>{currency.id}</Text>
-          <Text style={styles.currencyName}>{currency.name}</Text>
+          <Image
+            source={currency.icon_url}
+            style={style === "home" ? styles.icon : styles.modalIcon}
+          />
+          <Text style={style === "home" ? styles.id : styles.modalID}>
+            {currency.id}
+          </Text>
+          <Text style={style === "home" ? styles.name : styles.modalName}>
+            {currency.name}
+          </Text>
         </View>
       )}
     </>
@@ -39,17 +47,32 @@ const styles = StyleSheet.create({
     gap: 8,
     alignItems: "center",
   },
-  currencyIcon: {
+  icon: {
+    width: 16,
+    height: 16,
+  },
+  modalIcon: {
     width: 20,
     height: 20,
   },
-  currencyID: {
+  id: {
+    fontFamily: FontFamily.homeCurrencyID,
+    fontSize: FontSize.homeCurrencyID,
+    color: Color.homeCurrencyID,
+    textTransform: "uppercase",
+  },
+  name: {
+    fontFamily: FontFamily.homeCurrencyName,
+    fontSize: FontSize.homeCurrencyName,
+    color: Color.homeCurrencyName,
+  },
+  modalID: {
     fontFamily: FontFamily.modalCurrencyID,
     fontSize: FontSize.modalCurrencyID,
     color: Color.modalCurrencyID,
     textTransform: "uppercase",
   },
-  currencyName: {
+  modalName: {
     fontFamily: FontFamily.modalCurrencyName,
     fontSize: FontSize.modalCurrencyName,
     color: Color.modalCurrencyName,

@@ -9,34 +9,53 @@ import ModalTitle from "./ModalTitle";
 import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { Color } from "../constants/Color";
-import { Currency, CurrencyContext } from "../contexts/CurrencyContext";
 import { SearchContext } from "../contexts/SearchContext";
 import { TabContext } from "../contexts/TabContext";
+
+import {
+  Currency,
+  CurrencyContext,
+  SetSourceCurrency,
+  SetDestinationCurrency,
+} from "../contexts/CurrencyContext";
 
 interface ModalProps {
   visible: boolean;
   hide: () => void;
+  label: string;
 }
 
-export default function SelectCurrency({ visible, hide }: ModalProps) {
+export default function SelectCurrency({ visible, hide, label }: ModalProps) {
   const currencies = useContext(CurrencyContext);
   const activeTab = useContext(TabContext);
   const searchQuery = useContext(SearchContext);
+
+  const setCurrency = useContext(
+    label.includes("SOURCE") ? SetSourceCurrency : SetDestinationCurrency
+  );
+
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
 
   useEffect(() => {
-    const filteredByType = currencies.filter((currency) =>
-      activeTab === "Crypto"
-        ? currency.type === "coin"
-        : currency.type === "fiat"
-    );
+    if (label.includes("SOURCE")) {
+      const filteredByType = currencies.filter((currency) =>
+        activeTab === "Crypto"
+          ? currency.type === "coin"
+          : currency.type === "fiat"
+      );
 
-    const filteredByName = filteredByType.filter((currency) =>
-      currency.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      const filteredByName = filteredByType.filter((currency) =>
+        currency.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
-    setFilteredCurrencies(filteredByName);
+      setFilteredCurrencies(filteredByName);
+    }
   }, [currencies, activeTab, searchQuery]);
+
+  const handlePress = (id: string) => {
+    setCurrency(id);
+    hide();
+  };
 
   return (
     <Modal visible={visible} onRequestClose={hide} animationType="slide">
@@ -52,7 +71,9 @@ export default function SelectCurrency({ visible, hide }: ModalProps) {
           <SearchInput />
           <FlashList
             data={filteredCurrencies}
-            renderItem={({ item }) => <CurrencyItem id={item.id} />}
+            renderItem={({ item }) => (
+              <CurrencyItem id={item.id} onPress={handlePress} />
+            )}
             keyExtractor={(item) => item.id}
             estimatedItemSize={40}
           />

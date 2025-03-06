@@ -3,12 +3,15 @@ import { StyleSheet, View } from "react-native";
 import InputContainer from "./InputContainer";
 import OutputContainer from "./OutputContainer";
 import { Color } from "../constants/Color";
+import { CurrencyProvider } from "../contexts/CurrencyContext";
 
 export default function Body() {
   return (
     <View style={styles.container}>
-      <InputContainer />
-      <OutputContainer />
+      <CurrencyProvider>
+        <InputContainer />
+        <OutputContainer />
+      </CurrencyProvider>
     </View>
   );
 }

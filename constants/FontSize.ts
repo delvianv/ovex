@@ -9,6 +9,8 @@ export const FontSize = {
   sourceOutput: 16,
   destinationOutput: 24,
   exchangeRate: 16,
+  homeCurrencyID: 16,
+  homeCurrencyName: 16,
   modalCurrencyID: 16,
-  modalCurrencyName: 16,
+  modalCurrencyName: 14,
 };

@@ -10,6 +10,8 @@ export const FontFamily = {
   sourceOutput: "Gilroy-Bold",
   destinationOutput: "Gilroy-Bold",
   exchangeRate: "Gilroy-Regular",
-  modalCurrencyID: "Gilroy-Bold",
+  homeCurrencyID: "Gilroy-Bold",
+  homeCurrencyName: "Gilroy-Regular",
+  modalCurrencyID: "Gilroy-Regular",
   modalCurrencyName: "Gilroy-Regular",
 };
