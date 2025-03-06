@@ -1,0 +1,3 @@
+export const API = {
+  currencies: "https://www.ovex.io/api/v2/currencies",
+};

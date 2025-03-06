@@ -14,6 +14,8 @@ export const Color = {
   modalCloseIcon: "#343330",
   modalSearchIcon: "#303038",
   modalCurrencyIcon: "#343330",
+  modalCurrencyID: "#303038",
+  modalCurrencyName: "#8E8D99",
   activeTab: "#5589FF",
   inactiveTab: "#8E8D99",
   sourceOutput: "#303038",
