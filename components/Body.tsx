@@ -1,23 +1,24 @@
+import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
 import InputContainer from "./InputContainer";
 import OutputContainer from "./OutputContainer";
 import { Color } from "../constants/Color";
 import { AmountProvider } from "../contexts/AmountContext";
-import { CurrencyProvider } from "../contexts/CurrencyContext";
+import { DestinationCurrency } from "../contexts/CurrencyContext";
 import { MarketProvider } from "../contexts/MarketContext";
 
 export default function Body() {
+  const destinationCurrency = useContext(DestinationCurrency);
+
   return (
     <View style={styles.container}>
-      <CurrencyProvider>
-        <AmountProvider>
-          <MarketProvider>
-            <InputContainer />
-            <OutputContainer />
-          </MarketProvider>
-        </AmountProvider>
-      </CurrencyProvider>
+      <AmountProvider>
+        <MarketProvider>
+          <InputContainer />
+          {destinationCurrency && <OutputContainer />}
+        </MarketProvider>
+      </AmountProvider>
     </View>
   );
 }

@@ -9,6 +9,7 @@ import Body from "./components/Body";
 import Header from "./components/Header";
 import Title from "./components/Title";
 import { Color } from "./constants/Color";
+import { CurrencyProvider } from "./contexts/CurrencyContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,7 +29,9 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Header />
       <Title />
-      <Body />
+      <CurrencyProvider>
+        <Body />
+      </CurrencyProvider>
       <StatusBar style="auto" />
     </SafeAreaView>
   );
