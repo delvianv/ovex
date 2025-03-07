@@ -19,20 +19,22 @@ export default function CurrencyConversion({
   const sourceAmount = useContext(SourceAmount);
   const destinationAmount = useContext(DestinationAmount);
 
+  const sourceOutput =
+    sourceCurrency &&
+    `${sourceCurrency.symbol}${sourceAmount.toFixed(
+      sourceCurrency.display_precision
+    )} ${sourceCurrency.name} =`;
+
+  const destinationOutput =
+    destinationCurrency &&
+    `${destinationAmount.toFixed(destinationCurrency.display_precision)} ${
+      destinationCurrency.name
+    }`;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.sourceOutput}>
-        {sourceCurrency &&
-          `${sourceCurrency.symbol}${sourceAmount.toFixed(
-            sourceCurrency.display_precision
-          )} ${sourceCurrency.name} =`}
-      </Text>
-      <Text style={styles.destinationOutput}>
-        {destinationCurrency &&
-          `${destinationAmount.toFixed(
-            destinationCurrency.display_precision
-          )} ${destinationCurrency.name}`}
-      </Text>
+      <Text style={styles.sourceOutput}>{sourceOutput}</Text>
+      <Text style={styles.destinationOutput}>{destinationOutput}</Text>
     </View>
   );
 }
