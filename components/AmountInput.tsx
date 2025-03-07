@@ -5,7 +5,7 @@ import InputLabel from "./InputLabel";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { SourceAmount, SetSourceAmount } from "../contexts/AmountContext";
+import { SetSourceAmount } from "../contexts/AmountContext";
 
 import {
   Currency,
@@ -15,13 +15,13 @@ import {
 } from "../contexts/CurrencyContext";
 
 export default function AmountInput() {
-  const amount = useContext(SourceAmount);
   const setAmount = useContext(SetSourceAmount);
 
   const currencies = useContext(CurrencyContext);
   const sourceCurrency = useContext(SourceCurrency);
   const destinationCurrency = useContext(DestinationCurrency);
   const [currency, setCurrency] = useState<Currency>();
+  const [tempAmount, setTempAmount] = useState(0);
 
   useEffect(() => {
     setCurrency(currencies.find((currency) => currency.id === sourceCurrency));
@@ -31,9 +31,9 @@ export default function AmountInput() {
     const amount = parseFloat(text);
 
     if (!isNaN(amount)) {
-      setAmount(amount);
+      setTempAmount(amount);
     } else {
-      setAmount(0);
+      setTempAmount(0);
     }
   };
 
@@ -45,10 +45,11 @@ export default function AmountInput() {
           {currency ? currency.symbol : "$"}
         </Text>
         <TextInput
-          value={amount.toString()}
+          value={tempAmount.toString()}
           onChangeText={handleChangeText}
           inputMode="numeric"
           editable={Boolean(destinationCurrency)}
+          onSubmitEditing={() => setAmount(tempAmount)}
           style={[styles.amountInput, { flex: 1 }]}
         />
         <Text style={styles.amountInput}>
