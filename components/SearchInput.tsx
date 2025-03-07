@@ -1,18 +1,21 @@
-import { useContext } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { SearchContext, SetSearchContext } from "../contexts/SearchContext";
-import { TabContext } from "../contexts/TabContext";
 
-export default function SearchInput() {
-  const activeTab = useContext(TabContext);
-  const query = useContext(SearchContext);
-  const setQuery = useContext(SetSearchContext);
+interface InputProps {
+  query: string;
+  setQuery: (query: string) => void;
+  activeTab: string;
+}
 
+export default function SearchInput({
+  query,
+  setQuery,
+  activeTab,
+}: InputProps) {
   return (
     <View style={styles.container}>
       <MaterialIcons name="search" size={16} color={Color.modalSearchIcon} />

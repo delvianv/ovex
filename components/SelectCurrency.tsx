@@ -10,8 +10,6 @@ import SearchInput from "./SearchInput";
 import TabContainer from "./TabContainer";
 import { Color } from "../constants/Color";
 import { MarketContext } from "../contexts/MarketContext";
-import { SearchContext } from "../contexts/SearchContext";
-import { TabContext } from "../contexts/TabContext";
 
 import {
   Currency,
@@ -24,20 +22,22 @@ import {
 interface ModalProps {
   visible: boolean;
   hide: () => void;
-  label: string;
+
+  // Is this component for source or destination currency?
+  source: boolean;
 }
 
-export default function SelectCurrency({ visible, hide, label }: ModalProps) {
+export default function SelectCurrency({ visible, hide, source }: ModalProps) {
   const currencies = useContext(CurrencyContext);
   const markets = useContext(MarketContext);
-  const activeTab = useContext(TabContext);
-  const searchQuery = useContext(SearchContext);
   const sourceCurrency = useContext(SourceCurrency);
 
   const setCurrency = useContext(
-    label.includes("SOURCE") ? SetSourceCurrency : SetDestinationCurrency
+    source ? SetSourceCurrency : SetDestinationCurrency
   );
 
+  const [activeTab, setActiveTab] = useState("Crypto");
+  const [searchQuery, setSearchQuery] = useState("");
   const [filteredCurrencies, setFilteredCurrencies] = useState<string[]>([]);
 
   useEffect(() => {
@@ -76,10 +76,12 @@ export default function SelectCurrency({ visible, hide, label }: ModalProps) {
       );
     };
 
-    filterCurrencies(label.includes("SOURCE") ? currencies : validCurrencies());
+    // Show all currencies for source currency
+    // Only show currencies from markets for destination currency
+    filterCurrencies(source ? currencies : validCurrencies());
   }, [currencies, markets, activeTab, searchQuery, sourceCurrency]);
 
-  const handlePress = (id: string) => {
+  const handlePressItem = (id: string) => {
     setCurrency(id);
     hide();
   };
@@ -94,12 +96,16 @@ export default function SelectCurrency({ visible, hide, label }: ModalProps) {
         <View style={styles.container}>
           <CloseButton onPress={hide} />
           <ModalTitle />
-          <TabContainer />
-          <SearchInput />
+          <TabContainer activeTab={activeTab} setActiveTab={setActiveTab} />
+          <SearchInput
+            query={searchQuery}
+            setQuery={setSearchQuery}
+            activeTab={activeTab}
+          />
           <FlashList
             data={filteredCurrencies}
             renderItem={({ item }) => (
-              <CurrencyItem id={item} onPress={handlePress} />
+              <CurrencyItem id={item} onPress={handlePressItem} />
             )}
             estimatedItemSize={40}
           />

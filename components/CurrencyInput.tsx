@@ -8,8 +8,6 @@ import SelectCurrency from "./SelectCurrency";
 import { Color } from "../constants/Color";
 import { FontFamily } from "../constants/FontFamily";
 import { FontSize } from "../constants/FontSize";
-import { SearchProvider } from "../contexts/SearchContext";
-import { TabProvider } from "../contexts/TabContext";
 
 import {
   SourceCurrency,
@@ -21,6 +19,7 @@ interface InputProps {
 }
 
 export default function CurrencyInput({ label }: InputProps) {
+  // Is this component for source or destination currency?
   const [source, setSource] = useState(label.includes("SOURCE"));
   const currency = useContext(source ? SourceCurrency : DestinationCurrency);
 
@@ -47,15 +46,11 @@ export default function CurrencyInput({ label }: InputProps) {
           />
         </View>
       </Pressable>
-      <TabProvider>
-        <SearchProvider>
-          <SelectCurrency
-            visible={selectCurrency}
-            hide={hideSelectCurrency}
-            label={label}
-          />
-        </SearchProvider>
-      </TabProvider>
+      <SelectCurrency
+        visible={selectCurrency}
+        hide={hideSelectCurrency}
+        source={source}
+      />
     </View>
   );
 }
