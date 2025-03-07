@@ -16,22 +16,24 @@ export default function ExchangeRate({
   destinationCurrency,
   rate,
 }: RateProps) {
+  const buyOutput =
+    sourceCurrency &&
+    destinationCurrency &&
+    `1 ${sourceCurrency.id} = ${rate.toFixed(
+      destinationCurrency.display_precision
+    )} ${destinationCurrency.id}`;
+
+  const sellOutput =
+    sourceCurrency &&
+    destinationCurrency &&
+    `1 ${destinationCurrency.id} = ${(1 / rate).toFixed(
+      sourceCurrency.display_precision
+    )} ${sourceCurrency.id}`;
+
   return (
     <View style={styles.container}>
-      {sourceCurrency && destinationCurrency && (
-        <Text style={styles.exchangeRate}>
-          {`1 ${sourceCurrency.id} = ${rate.toFixed(
-            destinationCurrency.display_precision
-          )} ${destinationCurrency.id}`}
-        </Text>
-      )}
-      {sourceCurrency && destinationCurrency && (
-        <Text style={styles.exchangeRate}>
-          {`1 ${destinationCurrency.id} = ${(1 / rate).toFixed(
-            sourceCurrency.display_precision
-          )} ${sourceCurrency.id}`}
-        </Text>
-      )}
+      <Text style={styles.exchangeRate}>{buyOutput}</Text>
+      <Text style={styles.exchangeRate}>{sellOutput}</Text>
     </View>
   );
 }
