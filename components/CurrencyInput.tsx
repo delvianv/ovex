@@ -21,12 +21,10 @@ interface InputProps {
 }
 
 export default function CurrencyInput({ label }: InputProps) {
-  const currency = useContext(
-    label.includes("SOURCE") ? SourceCurrency : DestinationCurrency
-  );
+  const [source, setSource] = useState(label.includes("SOURCE"));
+  const currency = useContext(source ? SourceCurrency : DestinationCurrency);
 
   const [selectCurrency, setSelectCurrency] = useState(false);
-
   const showSelectCurrency = () => setSelectCurrency(true);
   const hideSelectCurrency = () => setSelectCurrency(false);
 
@@ -39,9 +37,7 @@ export default function CurrencyInput({ label }: InputProps) {
             <CurrencyName id={currency} style="home" />
           ) : (
             <Text style={styles.currencyInput}>
-              {label.includes("SOURCE")
-                ? "Select a Source Currency"
-                : "Select a Destination Currency"}
+              {`Select a ${source ? "Source" : "Destination"} Currency`}
             </Text>
           )}
           <MaterialIcons
