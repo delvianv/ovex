@@ -21,15 +21,17 @@ export default function CurrencyConversion({
 
   const sourceOutput =
     sourceCurrency &&
-    `${sourceCurrency.symbol}${sourceAmount.toFixed(
-      sourceCurrency.display_precision
-    )} ${sourceCurrency.name} =`;
+    `${sourceCurrency.symbol}${
+      sourceAmount ? sourceAmount.toFixed(sourceCurrency.display_precision) : 0
+    } ${sourceCurrency.name} =`;
 
   const destinationOutput =
     destinationCurrency &&
-    `${destinationAmount.toFixed(destinationCurrency.display_precision)} ${
-      destinationCurrency.name
-    }`;
+    `${
+      destinationAmount && sourceAmount
+        ? destinationAmount.toFixed(destinationCurrency.display_precision)
+        : 0
+    } ${destinationCurrency.name}`;
 
   return (
     <View style={styles.container}>

@@ -42,10 +42,15 @@ export default function OutputContainer() {
 
       if (!market) return;
 
+      // Call API with 1 while source amount = 0, just to get exchange rate
       const api =
         market.quote_currency === sourceCurrencyID
-          ? `${API.RFQ}?market=${market.id}&from_amount=${sourceAmount}`
-          : `${API.RFQ}?market=${market.id}&from_amount=${sourceAmount}&side=sell`;
+          ? `${API.RFQ}?market=${market.id}&from_amount=${
+              sourceAmount ? sourceAmount : 1
+            }`
+          : `${API.RFQ}?market=${market.id}&from_amount=${
+              sourceAmount ? sourceAmount : 1
+            }&side=sell`;
 
       const response = await fetch(api);
       const data: Quote = await response.json();
