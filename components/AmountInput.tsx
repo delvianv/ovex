@@ -11,6 +11,7 @@ import {
   Currency,
   CurrencyContext,
   SourceCurrency,
+  DestinationCurrency,
 } from "../contexts/CurrencyContext";
 
 export default function AmountInput() {
@@ -19,6 +20,7 @@ export default function AmountInput() {
 
   const currencies = useContext(CurrencyContext);
   const sourceCurrency = useContext(SourceCurrency);
+  const destinationCurrency = useContext(DestinationCurrency);
   const [currency, setCurrency] = useState<Currency>();
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function AmountInput() {
           value={amount.toString()}
           onChangeText={handleChangeText}
           inputMode="numeric"
+          editable={Boolean(destinationCurrency)}
           style={[styles.amountInput, { flex: 1 }]}
         />
         <Text style={styles.amountInput}>
