@@ -2,30 +2,25 @@ import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import AmountInput from "./AmountInput";
-import CurrencyInput from "./CurrencyInput";
+import CurrencyInputContainer from "./CurrencyInputContainer";
+import OutputContainer from "./OutputContainer";
 
 export default function Body() {
   return (
     <View style={styles.container}>
       <AmountInput />
-      <CurrencyInput
-        label="SOURCE CURRENCY"
-        placeholder="Select a source currency"
-      />
-      <CurrencyInput
-        label="DESTINATION CURRENCY"
-        placeholder="Select a destination currency"
-      />
+      <CurrencyInputContainer />
+      <OutputContainer />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.bodyBackground,
-    marginTop: 25,
-    paddingVertical: 30,
-    paddingHorizontal: 15,
+    backgroundColor: colors.background,
+    marginTop: 24,
+    paddingVertical: 32,
+    paddingHorizontal: 16,
     gap: 40,
   },
 });

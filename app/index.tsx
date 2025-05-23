@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import Body from "@/components/Body";
 import Header from "@/components/Header";
+import { fontFamily } from "@/constants/Fonts";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -37,9 +38,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#E9E9F0",
   },
   title: {
-    fontFamily: "Nunito_700Bold",
-    fontSize: 38,
+    fontFamily: fontFamily.bold,
+    fontSize: 36,
     textAlign: "center",
-    marginTop: 50,
+    marginTop: 48,
   },
 });

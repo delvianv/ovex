@@ -13,8 +13,8 @@ export default function InputLabel({ text }: LabelProps) {
 
 const styles = StyleSheet.create({
   label: {
-    fontFamily: fontFamily.inputLabel,
-    fontSize: fontSize.inputLabel,
-    color: colors.inputLabel,
+    fontFamily: fontFamily.regular,
+    fontSize: fontSize.label,
+    color: colors.label,
   },
 });

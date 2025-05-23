@@ -1,5 +1,5 @@
 export const colors = {
-  bodyBackground: "#FAFAFC",
-  inputLabel: "#8E8D99",
-  inputText: "#303038",
+  background: "#FAFAFC",
+  label: "#8E8D99",
+  text: "#303038",
 };

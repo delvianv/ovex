@@ -11,10 +11,10 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    height: 50,
-    paddingHorizontal: 15,
+    height: 48,
+    paddingHorizontal: 16,
     elevation: 1,
     borderRadius: 4,
-    backgroundColor: colors.bodyBackground,
+    backgroundColor: colors.background,
   },
 });

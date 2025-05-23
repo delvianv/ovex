@@ -19,8 +19,8 @@ export default function CurrencyInput({ label, placeholder }: InputProps) {
         <Text style={styles.inputText}>{placeholder}</Text>
         <MaterialIcons
           name="keyboard-arrow-down"
-          size={fontSize.inputText}
-          color={colors.inputText}
+          size={fontSize.text}
+          color={colors.text}
         />
       </InputContainer>
     </View>
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
   },
   inputText: {
     flex: 1,
-    fontFamily: fontFamily.inputLabel,
-    fontSize: fontSize.inputLabel,
-    color: colors.inputLabel,
+    fontFamily: fontFamily.regular,
+    fontSize: fontSize.label,
+    color: colors.label,
   },
 });

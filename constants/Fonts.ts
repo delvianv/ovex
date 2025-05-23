@@ -1,8 +1,9 @@
 export const fontFamily = {
-  inputLabel: "Nunito_400Regular",
+  bold: "Nunito_700Bold",
+  regular: "Nunito_400Regular",
 };
 
 export const fontSize = {
-  inputLabel: 16,
-  inputText: 22,
+  label: 16,
+  text: 20,
 };
