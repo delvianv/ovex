@@ -11,8 +11,8 @@ export default function OutputContainer() {
         <Text style={styles.destinationCurrency}>0 Bitcoin</Text>
       </View>
       <View style={styles.section}>
-        <Text>1 USD = 1 BTC</Text>
-        <Text>1 BTC = 1 USD</Text>
+        <Text style={styles.exchangeRate}>1 USD = 1 BTC</Text>
+        <Text style={styles.exchangeRate}>1 BTC = 1 USD</Text>
       </View>
     </View>
   );
@@ -34,5 +34,10 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.bold,
     fontSize: fontSize.text,
     color: colors.text,
+  },
+  exchangeRate: {
+    fontFamily: fontFamily.regular,
+    fontSize: fontSize.label,
+    color: colors.label,
   },
 });
