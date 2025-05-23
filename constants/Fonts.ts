@@ -5,5 +5,5 @@ export const fontFamily = {
 
 export const fontSize = {
   label: 16,
-  text: 20,
+  text: 24,
 };
