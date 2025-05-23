@@ -3,6 +3,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontSize } from "@/constants/Fonts";
+import InputContainer from "./InputContainer";
 import InputLabel from "./InputLabel";
 
 export default function AmountInput() {
@@ -11,7 +12,7 @@ export default function AmountInput() {
   return (
     <View style={styles.container}>
       <InputLabel text="SOURCE AMOUNT" />
-      <View style={styles.inputContainer}>
+      <InputContainer>
         <Text style={styles.inputText}>$</Text>
         <TextInput
           value={amount}
@@ -20,7 +21,7 @@ export default function AmountInput() {
           style={[styles.inputText, { flex: 1 }]}
         />
         <Text style={styles.inputText}>USD</Text>
-      </View>
+      </InputContainer>
     </View>
   );
 }
@@ -28,15 +29,6 @@ export default function AmountInput() {
 const styles = StyleSheet.create({
   container: {
     gap: 8,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    height: 50,
-    paddingHorizontal: 15,
-    elevation: 1,
-    borderRadius: 4,
-    backgroundColor: colors.bodyBackground,
   },
   inputText: {
     fontFamily: "Nunito_700Bold",
