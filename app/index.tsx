@@ -8,9 +8,9 @@ import { useEffect } from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Body from "@/components/Body";
-import Header from "@/components/Header";
 import { fontFamily } from "@/constants/Fonts";
+import Body from "@/containers/Body";
+import Header from "@/containers/Header";
 
 SplashScreen.preventAutoHideAsync();
 

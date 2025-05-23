@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import InputContainer from "./InputContainer";
+import InputContainer from "@/containers/InputContainer";
 import InputLabel from "./InputLabel";
 
 interface InputProps {
