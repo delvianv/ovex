@@ -6,12 +6,17 @@ import { fontFamily, fontSize } from "@/constants/Fonts";
 import InputContainer from "./InputContainer";
 import InputLabel from "./InputLabel";
 
-export default function CurrencyInput() {
+interface InputProps {
+  label: string;
+  placeholder: string;
+}
+
+export default function CurrencyInput({ label, placeholder }: InputProps) {
   return (
     <View style={styles.container}>
-      <InputLabel text="SOURCE CURRENCY" />
+      <InputLabel text={label} />
       <InputContainer>
-        <Text style={styles.inputText}>Select a source currency</Text>
+        <Text style={styles.inputText}>{placeholder}</Text>
         <MaterialIcons
           name="keyboard-arrow-down"
           size={fontSize.inputText}

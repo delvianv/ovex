@@ -8,7 +8,14 @@ export default function Body() {
   return (
     <View style={styles.container}>
       <AmountInput />
-      <CurrencyInput />
+      <CurrencyInput
+        label="SOURCE CURRENCY"
+        placeholder="Select a source currency"
+      />
+      <CurrencyInput
+        label="DESTINATION CURRENCY"
+        placeholder="Select a destination currency"
+      />
     </View>
   );
 }
