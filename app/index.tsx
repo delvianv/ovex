@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { fontFamily } from "@/constants/Fonts";
+import { colors } from "@/constants/Colors";
+import { fontFamily, fontSize } from "@/constants/Fonts";
 import Body from "@/containers/Body";
 import Header from "@/containers/Header";
 
@@ -35,11 +36,12 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#E9E9F0",
+    backgroundColor: colors.background,
   },
   title: {
     fontFamily: fontFamily.bold,
-    fontSize: 36,
+    fontSize: fontSize.title,
+    color: colors.text,
     textAlign: "center",
     marginTop: 48,
   },

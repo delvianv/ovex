@@ -1,6 +1,8 @@
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
 
+import { colors } from "@/constants/Colors";
+
 export default function Header() {
   return (
     <View style={styles.container}>
@@ -11,7 +13,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#1E222C",
+    backgroundColor: colors.headerBackground,
     padding: 8,
     alignItems: "center",
   },

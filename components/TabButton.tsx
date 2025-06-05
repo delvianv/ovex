@@ -22,12 +22,13 @@ export default function TabButton({ text, active, onPress }: ButtonProps) {
 const styles = StyleSheet.create({
   active: {
     fontFamily: fontFamily.bold,
-    fontSize: fontSize.label,
-    color: "#5589FF",
+    fontSize: fontSize.tab,
+    color: colors.activeTab,
+    textDecorationLine: "underline",
   },
   inactive: {
     fontFamily: fontFamily.regular,
-    fontSize: fontSize.label,
+    fontSize: fontSize.tab,
     color: colors.label,
   },
 });

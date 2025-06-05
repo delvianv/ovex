@@ -1,3 +1,4 @@
+import { colors } from "@/constants/Colors";
 import { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -11,8 +12,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderRadius: 4,
-    borderColor: "#A6BBE229",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.inputBackground,
+    borderColor: colors.inputBorder,
     elevation: 1,
     height: 56,
     paddingHorizontal: 16,

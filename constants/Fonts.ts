@@ -4,6 +4,9 @@ export const fontFamily = {
 };
 
 export const fontSize = {
-  label: 16,
+  title: 36,
+  modalTitle: 26,
   text: 24,
+  label: 16,
+  tab: 18,
 };

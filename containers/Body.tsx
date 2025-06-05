@@ -17,7 +17,7 @@ export default function Body() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.bodyBackground,
     marginTop: 24,
     paddingVertical: 32,
     paddingHorizontal: 16,
