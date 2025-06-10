@@ -1,6 +1,7 @@
-import { colors } from "@/constants/Colors";
 import { PropsWithChildren } from "react";
 import { StyleSheet, View } from "react-native";
+
+import { colors } from "@/constants/Colors";
 
 export default function InputContainer({ children }: PropsWithChildren) {
   return <View style={styles.container}>{children}</View>;

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
-import AmountInput from "@/components/AmountInput";
 import { colors } from "@/constants/Colors";
+import AmountInput from "@/ui/components/AmountInput";
 import CurrencyInputContainer from "./CurrencyInputContainer";
 import OutputContainer from "./OutputContainer";
 

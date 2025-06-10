@@ -9,4 +9,5 @@ export const fontSize = {
   text: 24,
   label: 16,
   tab: 18,
+  currency: 14,
 };

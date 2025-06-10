@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
-import TabButton from "@/components/TabButton";
+import TabButton from "@/ui/components/TabButton";
 
 export default function TabContainer() {
   const [activeTab, setActiveTab] = useState("Crypto");

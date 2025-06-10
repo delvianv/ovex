@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 
-import CurrencyInput from "@/components/CurrencyInput";
+import CurrencyInput from "@/ui/components/CurrencyInput";
 
 export default function CurrencyInputContainer() {
   return (

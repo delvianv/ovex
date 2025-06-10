@@ -5,13 +5,13 @@ import {
 } from "@expo-google-fonts/nunito";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "@/constants/Colors";
-import { fontFamily, fontSize } from "@/constants/Fonts";
-import Body from "@/containers/Body";
-import Header from "@/containers/Header";
+import Body from "@/ui/containers/Body";
+import Header from "@/ui/containers/Header";
+import Title from "@/ui/components/Title";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,7 +27,7 @@ export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <Text style={styles.title}>Convert Currency</Text>
+      <Title />
       <Body />
     </SafeAreaView>
   );
@@ -37,12 +37,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-  },
-  title: {
-    fontFamily: fontFamily.bold,
-    fontSize: fontSize.title,
-    color: colors.text,
-    textAlign: "center",
-    marginTop: 48,
   },
 });
