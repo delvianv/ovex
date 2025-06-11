@@ -4,7 +4,12 @@ import { StyleSheet, TextInput, View } from "react-native";
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
 
-export default function SearchInput() {
+interface InputProps {
+  search: string;
+  setSearch: (search: string) => void;
+}
+
+export default function SearchInput({ search, setSearch }: InputProps) {
   return (
     <View style={styles.container}>
       <MaterialIcons name="search" size={16} color={colors.text} />
@@ -12,6 +17,8 @@ export default function SearchInput() {
         inputMode="search"
         placeholder="Search"
         placeholderTextColor={colors.label}
+        value={search}
+        onChangeText={setSearch}
         style={styles.input}
       />
     </View>

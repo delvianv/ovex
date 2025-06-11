@@ -17,13 +17,27 @@ interface ModalProps {
 }
 
 export default function CurrencyModal({ visible, close }: ModalProps) {
-  const [currencies, setCurrencies] = useState<CurrencyType[]>();
+  const [currencies, setCurrencies] = useState<CurrencyType[]>([]);
+
+  const [activeTab, setActiveTab] = useState("Crypto");
+  const [search, setSearch] = useState("");
+
+  const filteredByType = currencies.filter((currency) =>
+    activeTab === "Crypto"
+      ? currency.type === "coin"
+      : currency.type === "fiat",
+  );
+
+  const filteredCurrencies = filteredByType.filter((currency) =>
+    currency.name.toLowerCase().includes(search.toLowerCase()),
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchCurrencies();
       setCurrencies(data);
     };
+    
     fetchData();
   }, []);
 
@@ -32,10 +46,10 @@ export default function CurrencyModal({ visible, close }: ModalProps) {
       <View style={styles.container}>
         <CloseButton onPress={close} />
         <ModalTitle />
-        <TabContainer />
-        <SearchInput />
+        <TabContainer activeTab={activeTab} setActiveTab={setActiveTab} />
+        <SearchInput search={search} setSearch={setSearch} />
         <FlashList
-          data={currencies}
+          data={filteredCurrencies}
           renderItem={({ item }) => <CurrencyItem currency={item} />}
           estimatedItemSize={40}
         />

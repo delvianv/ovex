@@ -1,11 +1,16 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import TabButton from "@/ui/components/TabButton";
 
-export default function TabContainer() {
-  const [activeTab, setActiveTab] = useState("Crypto");
+interface ContainerProps {
+  activeTab: string;
+  setActiveTab: (activeTab: string) => void;
+}
 
+export default function TabContainer({
+  activeTab,
+  setActiveTab,
+}: ContainerProps) {
   return (
     <View style={styles.container}>
       <TabButton text="Crypto" active={activeTab} onPress={setActiveTab} />
