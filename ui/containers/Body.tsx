@@ -1,11 +1,25 @@
+import { useContext, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
+import { fetchCurrencies } from "@/lib/API";
+import { SetCurrencyContext } from "@/lib/CurrencyProvider";
 import AmountInput from "@/ui/components/AmountInput";
 import CurrencyInputContainer from "./CurrencyInputContainer";
 import OutputContainer from "./OutputContainer";
 
 export default function Body() {
+  const setCurrency = useContext(SetCurrencyContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchCurrencies();
+      setCurrency(data);
+    };
+
+    fetchData();
+  }, [setCurrency]);
+
   return (
     <View style={styles.container}>
       <AmountInput />

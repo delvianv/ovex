@@ -9,6 +9,7 @@ import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "@/constants/Colors";
+import CurrencyProvider from "@/lib/CurrencyProvider";
 import Body from "@/ui/containers/Body";
 import Header from "@/ui/containers/Header";
 import Title from "@/ui/components/Title";
@@ -28,7 +29,9 @@ export default function Index() {
     <SafeAreaView style={styles.container}>
       <Header />
       <Title />
-      <Body />
+      <CurrencyProvider>
+        <Body />
+      </CurrencyProvider>
     </SafeAreaView>
   );
 }

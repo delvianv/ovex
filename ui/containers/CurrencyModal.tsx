@@ -1,10 +1,9 @@
 import { FlashList } from "@shopify/flash-list";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Modal, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
-import { fetchCurrencies } from "@/lib/API";
-import { CurrencyType } from "@/lib/types";
+import { CurrencyContext } from "@/lib/CurrencyProvider";
 import CloseButton from "@/ui/components/CloseButton";
 import CurrencyItem from "@/ui/components/CurrencyItem";
 import ModalTitle from "@/ui/components/ModalTitle";
@@ -17,7 +16,7 @@ interface ModalProps {
 }
 
 export default function CurrencyModal({ visible, close }: ModalProps) {
-  const [currencies, setCurrencies] = useState<CurrencyType[]>([]);
+  const currencies = useContext(CurrencyContext);
 
   const [activeTab, setActiveTab] = useState("Crypto");
   const [search, setSearch] = useState("");
@@ -32,15 +31,6 @@ export default function CurrencyModal({ visible, close }: ModalProps) {
     currency.name.toLowerCase().includes(search.toLowerCase()),
   );
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchCurrencies();
-      setCurrencies(data);
-    };
-    
-    fetchData();
-  }, []);
-
   return (
     <Modal visible={visible} onRequestClose={close} transparent={true}>
       <View style={styles.container}>
@@ -50,7 +40,7 @@ export default function CurrencyModal({ visible, close }: ModalProps) {
         <SearchInput search={search} setSearch={setSearch} />
         <FlashList
           data={filteredCurrencies}
-          renderItem={({ item }) => <CurrencyItem currency={item} />}
+          renderItem={({ item }) => <CurrencyItem currencyID={item.id} />}
           estimatedItemSize={40}
         />
       </View>

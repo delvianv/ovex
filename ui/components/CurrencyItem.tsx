@@ -1,24 +1,25 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
-import { CurrencyType } from "@/lib/types";
 import Currency from "./Currency";
 
 interface ItemProps {
-  currency: CurrencyType;
+  currencyID: string;
 }
 
-export default function CurrencyItem({ currency }: ItemProps) {
+export default function CurrencyItem({ currencyID }: ItemProps) {
   return (
-    <View style={styles.container}>
-      <Currency currency={currency} />
-      <MaterialIcons
-        name="keyboard-arrow-right"
-        size={16}
-        color={colors.text}
-      />
-    </View>
+    <Pressable>
+      <View style={styles.container}>
+        <Currency currencyID={currencyID} />
+        <MaterialIcons
+          name="keyboard-arrow-right"
+          size={16}
+          color={colors.text}
+        />
+      </View>
+    </Pressable>
   );
 }
 

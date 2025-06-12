@@ -1,21 +1,29 @@
 import { Image } from "expo-image";
+import { useContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import { CurrencyType } from "@/lib/types";
-import { fontFamily, fontSize } from "@/constants/Fonts";
 import { colors } from "@/constants/Colors";
+import { fontFamily, fontSize } from "@/constants/Fonts";
+import { CurrencyContext } from "@/lib/CurrencyProvider";
 
 interface ContainerProps {
-  currency: CurrencyType;
+  currencyID: string;
 }
 
-export default function Currency({ currency }: ContainerProps) {
+export default function Currency({ currencyID }: ContainerProps) {
+  const currencies = useContext(CurrencyContext);
+  const currency = currencies.find((currency) => currency.id === currencyID);
+
   return (
-    <View style={styles.container}>
-      <Image source={currency.icon_url} style={styles.icon} />
-      <Text style={styles.currencyID}>{currency.id}</Text>
-      <Text style={styles.currencyName}>{currency.name}</Text>
-    </View>
+    <>
+      {currency && (
+        <View style={styles.container}>
+          <Image source={currency.icon_url} style={styles.icon} />
+          <Text style={styles.currencyID}>{currency.id}</Text>
+          <Text style={styles.currencyName}>{currency.name}</Text>
+        </View>
+      )}
+    </>
   );
 }
 
