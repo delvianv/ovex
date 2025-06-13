@@ -1,13 +1,10 @@
 import { useContext } from "react";
-import { StyleSheet, Text } from "react-native";
-
-import { colors } from "@/constants/Colors";
-import { fontFamily, fontSize } from "@/constants/Fonts";
+import { Text } from "react-native";
 import { CurrencyContext } from "@/lib/CurrencyProvider";
 
 interface OutputProps {
   currencyID: string;
-  style: string;
+  style: object;
 }
 
 export default function CurrencyOutput({ currencyID, style }: OutputProps) {
@@ -17,27 +14,10 @@ export default function CurrencyOutput({ currencyID, style }: OutputProps) {
   return (
     <>
       {currency && (
-        <Text
-          style={
-            style === "source" ? styles.sourceCurrency : styles.destCurrency
-          }
-        >
+        <Text style={style}>
           {currency.symbol}0 {currency.name}
         </Text>
       )}
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  sourceCurrency: {
-    fontFamily: fontFamily.bold,
-    fontSize: fontSize.label,
-    color: colors.text,
-  },
-  destCurrency: {
-    fontFamily: fontFamily.bold,
-    fontSize: fontSize.text,
-    color: colors.text,
-  },
-});

@@ -56,4 +56,5 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bodyBackground,
     gap: 8,
   },
+  currency: {},
 });

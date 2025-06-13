@@ -1,5 +1,8 @@
 import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
+
+import { colors } from "@/constants/Colors";
+import { fontFamily, fontSize } from "@/constants/Fonts";
 import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
 import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
 import CurrencyOutput from "../components/CurrencyOutput";
@@ -12,8 +15,14 @@ export default function OutputContainer() {
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <CurrencyOutput currencyID={sourceCurrencyID} style="source" />
-        <CurrencyOutput currencyID={destCurrencyID} style="dest" />
+        <CurrencyOutput
+          currencyID={sourceCurrencyID}
+          style={styles.sourceCurrency}
+        />
+        <CurrencyOutput
+          currencyID={destCurrencyID}
+          style={styles.destCurrency}
+        />
       </View>
       <View style={styles.section}>
         <ExchangeRate
@@ -35,5 +44,15 @@ const styles = StyleSheet.create({
   },
   section: {
     gap: 8,
+  },
+  sourceCurrency: {
+    fontFamily: fontFamily.bold,
+    fontSize: fontSize.sourceCurrency,
+    color: colors.text,
+  },
+  destCurrency: {
+    fontFamily: fontFamily.bold,
+    fontSize: fontSize.destCurrency,
+    color: colors.text,
   },
 });

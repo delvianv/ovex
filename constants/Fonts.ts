@@ -10,4 +10,7 @@ export const fontSize = {
   label: 16,
   tab: 18,
   currency: 16,
+  sourceCurrency: 16,
+  destCurrency: 24,
+  icon: 20,
 };

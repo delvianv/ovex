@@ -2,6 +2,7 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
+import { fontSize } from "@/constants/Fonts";
 import Currency from "./Currency";
 
 interface ItemProps {
@@ -15,7 +16,7 @@ export default function CurrencyItem({ currencyID }: ItemProps) {
         <Currency currencyID={currencyID} />
         <MaterialIcons
           name="keyboard-arrow-right"
-          size={16}
+          size={fontSize.icon}
           color={colors.text}
         />
       </View>

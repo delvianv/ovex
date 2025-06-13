@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
-import { fontFamily, fontSize } from "@/constants/Fonts";
+import { fontSize } from "@/constants/Fonts";
 import Currency from "../components/Currency";
 import CurrencyModal from "../containers/CurrencyModal";
 import InputContainer from "../containers/InputContainer";
@@ -41,11 +41,5 @@ export default function CurrencyInput({ label, currencyID }: InputProps) {
 const styles = StyleSheet.create({
   container: {
     gap: 8,
-  },
-  inputText: {
-    flex: 1,
-    fontFamily: fontFamily.regular,
-    fontSize: fontSize.label,
-    color: colors.label,
   },
 });

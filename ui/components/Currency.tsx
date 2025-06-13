@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   icon: {
-    width: 16,
-    height: 16,
+    width: fontSize.icon,
+    height: fontSize.icon,
   },
   currencyID: {
     fontFamily: fontFamily.bold,
