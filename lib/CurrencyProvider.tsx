@@ -1,6 +1,8 @@
 import { createContext, PropsWithChildren, useState } from "react";
 
-import { CurrencyType } from "@/lib/types";
+import DestCurrencyProvider from "./DestCurrencyProvider";
+import SourceCurrencyProvider from "./SourceCurrencyProvider";
+import { CurrencyType } from "./types";
 
 export const CurrencyContext = createContext<CurrencyType[]>([]);
 export const SetCurrencyContext = createContext(
@@ -12,7 +14,11 @@ export default function CurrencyProvider({ children }: PropsWithChildren) {
 
   return (
     <CurrencyContext value={currency}>
-      <SetCurrencyContext value={setCurrency}>{children}</SetCurrencyContext>
+      <SetCurrencyContext value={setCurrency}>
+        <SourceCurrencyProvider>
+          <DestCurrencyProvider>{children}</DestCurrencyProvider>
+        </SourceCurrencyProvider>
+      </SetCurrencyContext>
     </CurrencyContext>
   );
 }

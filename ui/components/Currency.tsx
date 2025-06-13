@@ -29,7 +29,9 @@ export default function Currency({ currencyID }: ContainerProps) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
+    alignItems: "center",
   },
   icon: {
     width: 16,

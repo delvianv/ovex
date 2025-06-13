@@ -1,19 +1,20 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import CurrencyModal from "@/ui/containers/CurrencyModal";
-import InputContainer from "@/ui/containers/InputContainer";
+import Currency from "../components/Currency";
+import CurrencyModal from "../containers/CurrencyModal";
+import InputContainer from "../containers/InputContainer";
 import InputLabel from "./InputLabel";
 
 interface InputProps {
   label: string;
-  placeholder: string;
+  currencyID: string;
 }
 
-export default function CurrencyInput({ label, placeholder }: InputProps) {
+export default function CurrencyInput({ label, currencyID }: InputProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -21,7 +22,7 @@ export default function CurrencyInput({ label, placeholder }: InputProps) {
       <InputLabel text={label} />
       <Pressable onPress={() => setModalVisible(true)}>
         <InputContainer>
-          <Text style={styles.inputText}>{placeholder}</Text>
+          <Currency currencyID={currencyID} />
           <MaterialIcons
             name="keyboard-arrow-down"
             size={fontSize.text}

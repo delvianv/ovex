@@ -4,7 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "@/constants/Colors";
 import { fetchCurrencies } from "@/lib/API";
 import { SetCurrencyContext } from "@/lib/CurrencyProvider";
-import AmountInput from "@/ui/components/AmountInput";
+import AmountInput from "../components/AmountInput";
 import CurrencyInputContainer from "./CurrencyInputContainer";
 import OutputContainer from "./OutputContainer";
 

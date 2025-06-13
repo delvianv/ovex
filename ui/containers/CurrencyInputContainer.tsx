@@ -1,18 +1,18 @@
+import { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
-import CurrencyInput from "@/ui/components/CurrencyInput";
+import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
+import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
+import CurrencyInput from "../components/CurrencyInput";
 
 export default function CurrencyInputContainer() {
+  const sourceCurrencyID = useContext(SourceCurrencyContext);
+  const destCurrencyID = useContext(DestCurrencyContext);
+
   return (
     <View style={styles.container}>
-      <CurrencyInput
-        label="SOURCE CURRENCY"
-        placeholder="Select a source currency"
-      />
-      <CurrencyInput
-        label="DESTINATION CURRENCY"
-        placeholder="Select a destination currency"
-      />
+      <CurrencyInput label="SOURCE CURRENCY" currencyID={sourceCurrencyID} />
+      <CurrencyInput label="DESTINATION CURRENCY" currencyID={destCurrencyID} />
     </View>
   );
 }

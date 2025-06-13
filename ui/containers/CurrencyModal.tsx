@@ -4,10 +4,10 @@ import { Modal, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { CurrencyContext } from "@/lib/CurrencyProvider";
-import CloseButton from "@/ui/components/CloseButton";
-import CurrencyItem from "@/ui/components/CurrencyItem";
-import ModalTitle from "@/ui/components/ModalTitle";
-import SearchInput from "@/ui/components/SearchInput";
+import CloseButton from "../components/CloseButton";
+import CurrencyItem from "../components/CurrencyItem";
+import ModalTitle from "../components/ModalTitle";
+import SearchInput from "../components/SearchInput";
 import TabContainer from "./TabContainer";
 
 interface ModalProps {

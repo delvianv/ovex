@@ -1,18 +1,29 @@
-import { StyleSheet, Text, View } from "react-native";
-
-import { colors } from "@/constants/Colors";
-import { fontFamily, fontSize } from "@/constants/Fonts";
+import { useContext } from "react";
+import { StyleSheet, View } from "react-native";
+import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
+import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
+import CurrencyOutput from "../components/CurrencyOutput";
+import ExchangeRate from "../components/ExchangeRate";
 
 export default function OutputContainer() {
+  const sourceCurrencyID = useContext(SourceCurrencyContext);
+  const destCurrencyID = useContext(DestCurrencyContext);
+
   return (
     <View style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.sourceCurrency}>$0 US Dollars =</Text>
-        <Text style={styles.destinationCurrency}>0 Bitcoin</Text>
+        <CurrencyOutput currencyID={sourceCurrencyID} style="source" />
+        <CurrencyOutput currencyID={destCurrencyID} style="dest" />
       </View>
       <View style={styles.section}>
-        <Text style={styles.exchangeRate}>1 USD = 1 BTC</Text>
-        <Text style={styles.exchangeRate}>1 BTC = 1 USD</Text>
+        <ExchangeRate
+          currencyID_1={sourceCurrencyID}
+          currencyID_2={destCurrencyID}
+        />
+        <ExchangeRate
+          currencyID_1={destCurrencyID}
+          currencyID_2={sourceCurrencyID}
+        />
       </View>
     </View>
   );
@@ -24,20 +35,5 @@ const styles = StyleSheet.create({
   },
   section: {
     gap: 8,
-  },
-  sourceCurrency: {
-    fontFamily: fontFamily.bold,
-    fontSize: fontSize.label,
-    color: colors.text,
-  },
-  destinationCurrency: {
-    fontFamily: fontFamily.bold,
-    fontSize: fontSize.text,
-    color: colors.text,
-  },
-  exchangeRate: {
-    fontFamily: fontFamily.regular,
-    fontSize: fontSize.label,
-    color: colors.label,
   },
 });

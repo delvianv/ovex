@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 
-import TabButton from "@/ui/components/TabButton";
+import TabButton from "../components/TabButton";
 
 interface ContainerProps {
   activeTab: string;
