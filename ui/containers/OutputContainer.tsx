@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
 import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
+import { SourceAmountContext } from "@/lib/SourceAmountProvider";
 import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
 import CurrencyOutput from "../components/CurrencyOutput";
 import ExchangeRate from "../components/ExchangeRate";
@@ -11,16 +12,19 @@ import ExchangeRate from "../components/ExchangeRate";
 export default function OutputContainer() {
   const sourceCurrencyID = useContext(SourceCurrencyContext);
   const destCurrencyID = useContext(DestCurrencyContext);
+  const sourceAmount = useContext(SourceAmountContext);
 
   return (
     <View style={styles.container}>
       <View style={styles.section}>
         <CurrencyOutput
           currencyID={sourceCurrencyID}
+          amount={sourceAmount}
           style={styles.sourceCurrency}
         />
         <CurrencyOutput
           currencyID={destCurrencyID}
+          amount={0}
           style={styles.destCurrency}
         />
       </View>

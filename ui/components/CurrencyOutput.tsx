@@ -4,10 +4,15 @@ import { CurrencyContext } from "@/lib/CurrencyProvider";
 
 interface OutputProps {
   currencyID: string;
+  amount: number;
   style: object;
 }
 
-export default function CurrencyOutput({ currencyID, style }: OutputProps) {
+export default function CurrencyOutput({
+  currencyID,
+  amount,
+  style,
+}: OutputProps) {
   const currencies = useContext(CurrencyContext);
   const currency = currencies.find((currency) => currency.id === currencyID);
 
@@ -15,7 +20,8 @@ export default function CurrencyOutput({ currencyID, style }: OutputProps) {
     <>
       {currency && (
         <Text style={style}>
-          {currency.symbol}0 {currency.name}
+          {currency.symbol}
+          {amount} {currency.name}
         </Text>
       )}
     </>

@@ -10,6 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "@/constants/Colors";
 import CurrencyProvider from "@/lib/CurrencyProvider";
+import SourceAmountProvider from "@/lib/SourceAmountProvider";
 import Body from "@/ui/containers/Body";
 import Header from "@/ui/containers/Header";
 import Title from "@/ui/components/Title";
@@ -30,7 +31,9 @@ export default function Index() {
       <Header />
       <Title />
       <CurrencyProvider>
-        <Body />
+        <SourceAmountProvider>
+          <Body />
+        </SourceAmountProvider>
       </CurrencyProvider>
     </SafeAreaView>
   );

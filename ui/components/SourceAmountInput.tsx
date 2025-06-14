@@ -4,16 +4,25 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
 import { CurrencyContext } from "@/lib/CurrencyProvider";
+import { SetSourceAmountContext } from "@/lib/SourceAmountProvider";
 import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
 import InputContainer from "../containers/InputContainer";
 import InputLabel from "./InputLabel";
 
-export default function AmountInput() {
+export default function SourceAmountInput() {
   const currencies = useContext(CurrencyContext);
   const currencyID = useContext(SourceCurrencyContext);
   const currency = currencies.find((currency) => currency.id === currencyID);
 
   const [amount, setAmount] = useState("0");
+  const setSourceAmount = useContext(SetSourceAmountContext);
+
+  const handleEndEditing = () => {
+    const amountNumber = parseFloat(amount);
+
+    setSourceAmount(amountNumber);
+    setAmount(amountNumber.toString());
+  };
 
   return (
     <View style={styles.container}>
@@ -24,6 +33,7 @@ export default function AmountInput() {
           <TextInput
             value={amount}
             onChangeText={(text) => setAmount(text)}
+            onEndEditing={handleEndEditing}
             inputMode="numeric"
             style={[styles.text, { flex: 1 }]}
           />
