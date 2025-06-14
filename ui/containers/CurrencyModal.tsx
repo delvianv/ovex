@@ -13,15 +13,20 @@ import TabContainer from "./TabContainer";
 interface ModalProps {
   visible: boolean;
   close: () => void;
+  markets: string[];
 }
 
-export default function CurrencyModal({ visible, close }: ModalProps) {
+export default function CurrencyModal({ visible, close, markets }: ModalProps) {
   const currencies = useContext(CurrencyContext);
 
   const [activeTab, setActiveTab] = useState("Crypto");
   const [search, setSearch] = useState("");
 
-  const filteredByType = currencies.filter((currency) =>
+  const filteredByMarkets = currencies.filter((currency) =>
+    markets.includes(currency.id),
+  );
+
+  const filteredByType = filteredByMarkets.filter((currency) =>
     activeTab === "Crypto"
       ? currency.type === "coin"
       : currency.type === "fiat",

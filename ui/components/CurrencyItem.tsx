@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontSize } from "@/constants/Fonts";
-import Currency from "./Currency";
+import CurrencyLabel from "./CurrencyLabel";
 
 interface ItemProps {
   currencyID: string;
@@ -13,7 +13,7 @@ export default function CurrencyItem({ currencyID }: ItemProps) {
   return (
     <Pressable>
       <View style={styles.container}>
-        <Currency currencyID={currencyID} />
+        <CurrencyLabel currencyID={currencyID} />
         <MaterialIcons
           name="keyboard-arrow-right"
           size={fontSize.icon}

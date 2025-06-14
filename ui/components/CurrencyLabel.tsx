@@ -10,7 +10,7 @@ interface ContainerProps {
   currencyID: string;
 }
 
-export default function Currency({ currencyID }: ContainerProps) {
+export default function CurrencyLabel({ currencyID }: ContainerProps) {
   const currencies = useContext(CurrencyContext);
   const currency = currencies.find((currency) => currency.id === currencyID);
 

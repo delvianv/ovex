@@ -4,17 +4,22 @@ import { Pressable, StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontSize } from "@/constants/Fonts";
-import Currency from "../components/Currency";
 import CurrencyModal from "../containers/CurrencyModal";
 import InputContainer from "../containers/InputContainer";
+import CurrencyLabel from "./CurrencyLabel";
 import InputLabel from "./InputLabel";
 
 interface InputProps {
   label: string;
   currencyID: string;
+  markets: string[];
 }
 
-export default function CurrencyInput({ label, currencyID }: InputProps) {
+export default function CurrencyInput({
+  label,
+  currencyID,
+  markets,
+}: InputProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -22,7 +27,7 @@ export default function CurrencyInput({ label, currencyID }: InputProps) {
       <InputLabel text={label} />
       <Pressable onPress={() => setModalVisible(true)}>
         <InputContainer>
-          <Currency currencyID={currencyID} />
+          <CurrencyLabel currencyID={currencyID} />
           <MaterialIcons
             name="keyboard-arrow-down"
             size={fontSize.text}
@@ -33,6 +38,7 @@ export default function CurrencyInput({ label, currencyID }: InputProps) {
       <CurrencyModal
         visible={modalVisible}
         close={() => setModalVisible(false)}
+        markets={markets}
       />
     </View>
   );

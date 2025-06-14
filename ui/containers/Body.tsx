@@ -12,12 +12,12 @@ export default function Body() {
   const setCurrency = useContext(SetCurrencyContext);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getCurrencies = async () => {
       const data = await fetchCurrencies();
       setCurrency(data);
     };
 
-    fetchData();
+    getCurrencies();
   }, [setCurrency]);
 
   return (
