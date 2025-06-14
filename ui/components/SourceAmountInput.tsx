@@ -3,9 +3,8 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import { CurrencyContext } from "@/lib/CurrencyProvider";
-import { SetSourceAmountContext } from "@/lib/SourceAmountProvider";
-import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
+import { CurrencyContext, SourceCurrencyContext } from "@/lib/CurrencyProvider";
+import { SetSourceAmountContext } from "@/lib/AmountProvider";
 import InputContainer from "../containers/InputContainer";
 import InputLabel from "./InputLabel";
 
@@ -19,7 +18,6 @@ export default function SourceAmountInput() {
 
   const handleEndEditing = () => {
     const amountNumber = parseFloat(amount);
-
     setSourceAmount(amountNumber);
     setAmount(amountNumber.toString());
   };

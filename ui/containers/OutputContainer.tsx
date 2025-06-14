@@ -3,9 +3,11 @@ import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
-import { SourceAmountContext } from "@/lib/SourceAmountProvider";
-import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
+import {
+  DestCurrencyContext,
+  SourceCurrencyContext,
+} from "@/lib/CurrencyProvider";
+import { SourceAmountContext } from "@/lib/AmountProvider";
 import CurrencyOutput from "../components/CurrencyOutput";
 import ExchangeRate from "../components/ExchangeRate";
 

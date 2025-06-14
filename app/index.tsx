@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "@/constants/Colors";
 import CurrencyProvider from "@/lib/CurrencyProvider";
-import SourceAmountProvider from "@/lib/SourceAmountProvider";
+import { SourceAmountProvider } from "@/lib/AmountProvider";
 import Body from "@/ui/containers/Body";
 import Header from "@/ui/containers/Header";
 import Title from "@/ui/components/Title";

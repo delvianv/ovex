@@ -5,11 +5,9 @@ import { fetchMarkets } from "@/lib/API";
 import {
   DestCurrencyContext,
   SetDestCurrencyContext,
-} from "@/lib/DestCurrencyProvider";
-import {
   SetSourceCurrencyContext,
   SourceCurrencyContext,
-} from "@/lib/SourceCurrencyProvider";
+} from "@/lib/CurrencyProvider";
 import { Market } from "@/lib/types";
 import CurrencyInput from "../components/CurrencyInput";
 
