@@ -14,9 +14,15 @@ interface ModalProps {
   visible: boolean;
   close: () => void;
   markets: string[];
+  setCurrency: (currencyID: string) => void;
 }
 
-export default function CurrencyModal({ visible, close, markets }: ModalProps) {
+export default function CurrencyModal({
+  visible,
+  close,
+  markets,
+  setCurrency,
+}: ModalProps) {
   const currencies = useContext(CurrencyContext);
 
   const [activeTab, setActiveTab] = useState("Crypto");
@@ -45,7 +51,13 @@ export default function CurrencyModal({ visible, close, markets }: ModalProps) {
         <SearchInput search={search} setSearch={setSearch} />
         <FlashList
           data={filteredCurrencies}
-          renderItem={({ item }) => <CurrencyItem currencyID={item.id} />}
+          renderItem={({ item }) => (
+            <CurrencyItem
+              currencyID={item.id}
+              setCurrency={setCurrency}
+              closeModal={close}
+            />
+          )}
           estimatedItemSize={40}
         />
       </View>

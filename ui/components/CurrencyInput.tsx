@@ -13,12 +13,14 @@ interface InputProps {
   label: string;
   currencyID: string;
   markets: string[];
+  setCurrency: (currencyID: string) => void;
 }
 
 export default function CurrencyInput({
   label,
   currencyID,
   markets,
+  setCurrency,
 }: InputProps) {
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -39,6 +41,7 @@ export default function CurrencyInput({
         visible={modalVisible}
         close={() => setModalVisible(false)}
         markets={markets}
+        setCurrency={setCurrency}
       />
     </View>
   );

@@ -7,11 +7,22 @@ import CurrencyLabel from "./CurrencyLabel";
 
 interface ItemProps {
   currencyID: string;
+  setCurrency: (currencyID: string) => void;
+  closeModal: () => void;
 }
 
-export default function CurrencyItem({ currencyID }: ItemProps) {
+export default function CurrencyItem({
+  currencyID,
+  setCurrency,
+  closeModal,
+}: ItemProps) {
+  const handlePress = () => {
+    setCurrency(currencyID);
+    closeModal();
+  };
+
   return (
-    <Pressable>
+    <Pressable onPress={handlePress}>
       <View style={styles.container}>
         <CurrencyLabel currencyID={currencyID} />
         <MaterialIcons

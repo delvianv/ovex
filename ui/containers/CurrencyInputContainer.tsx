@@ -2,14 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { fetchMarkets } from "@/lib/API";
-import { DestCurrencyContext } from "@/lib/DestCurrencyProvider";
-import { SourceCurrencyContext } from "@/lib/SourceCurrencyProvider";
+import {
+  DestCurrencyContext,
+  SetDestCurrencyContext,
+} from "@/lib/DestCurrencyProvider";
+import {
+  SetSourceCurrencyContext,
+  SourceCurrencyContext,
+} from "@/lib/SourceCurrencyProvider";
 import { Market } from "@/lib/types";
 import CurrencyInput from "../components/CurrencyInput";
 
 export default function CurrencyInputContainer() {
   const sourceCurrencyID = useContext(SourceCurrencyContext);
   const destCurrencyID = useContext(DestCurrencyContext);
+  const setSourceCurrency = useContext(SetSourceCurrencyContext);
+  const setDestCurrency = useContext(SetDestCurrencyContext);
 
   const [markets, setMarkets] = useState<Market[]>([]);
 
@@ -46,11 +54,13 @@ export default function CurrencyInputContainer() {
         label="SOURCE CURRENCY"
         currencyID={sourceCurrencyID}
         markets={getSourceCurrencies()}
+        setCurrency={setSourceCurrency}
       />
       <CurrencyInput
         label="DESTINATION CURRENCY"
         currencyID={destCurrencyID}
         markets={getDestCurrencies()}
+        setCurrency={setDestCurrency}
       />
     </View>
   );
