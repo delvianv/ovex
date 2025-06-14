@@ -8,7 +8,7 @@ export const SetSourceCurrencyContext = createContext(
 export default function SourceCurrencyProvider({
   children,
 }: PropsWithChildren) {
-  const [currencyID, setCurrencyID] = useState("usd");
+  const [currencyID, setCurrencyID] = useState("zar");
 
   return (
     <SourceCurrencyContext value={currencyID}>
