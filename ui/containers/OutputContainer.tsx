@@ -1,13 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
 import {
+  DestAmountContext,
+  SetDestAmountContext,
+  SourceAmountContext,
+} from "@/lib/AmountProvider";
+import {
   DestCurrencyContext,
   SourceCurrencyContext,
 } from "@/lib/CurrencyProvider";
-import { SourceAmountContext } from "@/lib/AmountProvider";
+import { fetchQuote } from "@/lib/API";
+import { MarketContext } from "@/lib/MarketProvider";
+import { Quote } from "@/lib/types";
 import CurrencyOutput from "../components/CurrencyOutput";
 import ExchangeRate from "../components/ExchangeRate";
 
@@ -15,6 +22,28 @@ export default function OutputContainer() {
   const sourceCurrencyID = useContext(SourceCurrencyContext);
   const destCurrencyID = useContext(DestCurrencyContext);
   const sourceAmount = useContext(SourceAmountContext);
+  const destAmount = useContext(DestAmountContext);
+  const setDestAmount = useContext(SetDestAmountContext);
+  const markets = useContext(MarketContext);
+
+  const [quote, setQuote] = useState<Quote>();
+
+  useEffect(() => {
+    const getQuote = async () => {
+      const quote = await fetchQuote(
+        markets,
+        sourceCurrencyID,
+        destCurrencyID,
+        sourceAmount,
+      );
+      if (!quote) return;
+
+      setDestAmount(parseFloat(quote.to_amount));
+      setQuote(quote);
+    };
+
+    getQuote();
+  }, [markets, sourceCurrencyID, destCurrencyID, sourceAmount, setDestAmount]);
 
   return (
     <View style={styles.container}>
@@ -26,20 +55,17 @@ export default function OutputContainer() {
         />
         <CurrencyOutput
           currencyID={destCurrencyID}
-          amount={0}
+          amount={destAmount}
           style={styles.destCurrency}
         />
       </View>
-      <View style={styles.section}>
+      {quote && (
         <ExchangeRate
-          currencyID_1={sourceCurrencyID}
-          currencyID_2={destCurrencyID}
+          sourceCurrencyID={sourceCurrencyID}
+          destCurrencyID={destCurrencyID}
+          quote={quote}
         />
-        <ExchangeRate
-          currencyID_1={destCurrencyID}
-          currencyID_2={sourceCurrencyID}
-        />
-      </View>
+      )}
     </View>
   );
 }

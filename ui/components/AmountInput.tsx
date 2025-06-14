@@ -3,21 +3,24 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import { CurrencyContext, SourceCurrencyContext } from "@/lib/CurrencyProvider";
 import { SetSourceAmountContext } from "@/lib/AmountProvider";
+import { CurrencyContext, SourceCurrencyContext } from "@/lib/CurrencyProvider";
 import InputContainer from "../containers/InputContainer";
 import InputLabel from "./InputLabel";
 
-export default function SourceAmountInput() {
+export default function AmountInput() {
   const currencies = useContext(CurrencyContext);
-  const currencyID = useContext(SourceCurrencyContext);
-  const currency = currencies.find((currency) => currency.id === currencyID);
+  const sourceCurrencyID = useContext(SourceCurrencyContext);
+  const currency = currencies.find(
+    (currency) => currency.id === sourceCurrencyID,
+  );
 
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("1");
   const setSourceAmount = useContext(SetSourceAmountContext);
 
-  const handleEndEditing = () => {
+  const handleEndEditing = async () => {
     const amountNumber = parseFloat(amount);
+
     setSourceAmount(amountNumber);
     setAmount(amountNumber.toString());
   };

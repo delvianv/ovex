@@ -9,8 +9,9 @@ import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { colors } from "@/constants/Colors";
+import AmountProvider from "@/lib/AmountProvider";
 import CurrencyProvider from "@/lib/CurrencyProvider";
-import { SourceAmountProvider } from "@/lib/AmountProvider";
+import MarketProvider from "@/lib/MarketProvider";
 import Body from "@/ui/containers/Body";
 import Header from "@/ui/containers/Header";
 import Title from "@/ui/components/Title";
@@ -31,9 +32,11 @@ export default function Index() {
       <Header />
       <Title />
       <CurrencyProvider>
-        <SourceAmountProvider>
-          <Body />
-        </SourceAmountProvider>
+        <MarketProvider>
+          <AmountProvider>
+            <Body />
+          </AmountProvider>
+        </MarketProvider>
       </CurrencyProvider>
     </SafeAreaView>
   );
