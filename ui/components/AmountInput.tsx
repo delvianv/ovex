@@ -19,7 +19,13 @@ export default function AmountInput() {
   const setSourceAmount = useContext(SetSourceAmountContext);
 
   const handleEndEditing = () => {
-    setSourceAmount(parseFloat(amount));
+    const amountNumber = parseFloat(amount);
+
+    if (isNaN(amountNumber)) {
+      setSourceAmount(1);
+    } else {
+      setSourceAmount(amountNumber);
+    }
   };
 
   return (

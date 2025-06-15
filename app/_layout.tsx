@@ -1,5 +1,5 @@
 /**
- * OVEX Assessment
+ * Convert currency with OVEX
  *
  * (c) Delvian Valentine <https://delvianv.github.io>
  */

@@ -27,6 +27,8 @@ export default function Index() {
     }
   }, [loadedFonts, error]);
 
+  if (!loadedFonts && !error) return;
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
