@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+
 import {
   DestCurrencyContext,
   SetDestCurrencyContext,
@@ -18,6 +19,12 @@ export default function CurrencyInputContainer() {
   const markets = useContext(MarketContext);
   const sourceCurrencies = getSourceCurrencies(markets);
   const destCurrencies = getDestCurrencies(markets, sourceCurrencyID);
+
+  useEffect(() => {
+    if (!destCurrencies.includes(destCurrencyID)) {
+      setDestCurrency(destCurrencies[0]);
+    }
+  }, [destCurrencies, destCurrencyID, setDestCurrency, sourceCurrencyID]);
 
   return (
     <View style={styles.container}>

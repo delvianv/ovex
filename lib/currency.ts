@@ -1,22 +1,24 @@
 import { Market, Quote } from "./types";
 
 export function getSourceCurrencies(markets: Market[]) {
-  const base_currencies = markets.map((market) => market.base_currency);
-  const quote_currencies = markets.map((market) => market.quote_currency);
+  const baseCurrencies = markets.map((market) => market.base_currency);
+  const quoteCurrencies = markets.map((market) => market.quote_currency);
 
-  return [...base_currencies, ...quote_currencies];
+  return [...baseCurrencies, ...quoteCurrencies];
 }
 
 export function getDestCurrencies(markets: Market[], sourceCurrencyID: string) {
-  const base_currencies = markets.map((market) =>
-    market.quote_currency === sourceCurrencyID ? market.base_currency : "",
+  const baseMarkets = markets.filter(
+    (market) => market.quote_currency === sourceCurrencyID,
   );
+  const baseCurrencies = baseMarkets.map((market) => market.base_currency);
 
-  const quote_currencies = markets.map((market) =>
-    market.base_currency === sourceCurrencyID ? market.quote_currency : "",
+  const quoteMarkets = markets.filter(
+    (market) => market.base_currency === sourceCurrencyID,
   );
+  const quoteCurrencies = quoteMarkets.map((market) => market.quote_currency);
 
-  return [...base_currencies, ...quote_currencies];
+  return [...baseCurrencies, ...quoteCurrencies];
 }
 
 export function getRate(quote: Quote) {
