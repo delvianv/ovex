@@ -14,6 +14,7 @@ import {
 } from "@/lib/CurrencyProvider";
 import { fetchQuote } from "@/lib/API";
 import { MarketContext } from "@/lib/MarketProvider";
+import { toFixedString } from "@/lib/currency";
 import { Quote } from "@/lib/types";
 import CurrencyOutput from "../components/CurrencyOutput";
 import ExchangeRate from "../components/ExchangeRate";
@@ -50,12 +51,16 @@ export default function OutputContainer() {
       <View style={styles.section}>
         <CurrencyOutput
           currencyID={sourceCurrencyID}
-          amount={sourceAmount}
+          amount={toFixedString(
+            markets,
+            sourceCurrencyID,
+            sourceAmount.toString(),
+          )}
           style={styles.sourceCurrency}
         />
         <CurrencyOutput
           currencyID={destCurrencyID}
-          amount={destAmount}
+          amount={toFixedString(markets, destCurrencyID, destAmount.toString())}
           style={styles.destCurrency}
         />
       </View>

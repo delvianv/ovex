@@ -4,7 +4,7 @@ import { CurrencyContext } from "@/lib/CurrencyProvider";
 
 interface OutputProps {
   currencyID: string;
-  amount: number;
+  amount: string;
   style: object;
 }
 

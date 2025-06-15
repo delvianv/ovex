@@ -22,5 +22,22 @@ export function getDestCurrencies(markets: Market[], sourceCurrencyID: string) {
 }
 
 export function getRate(quote: Quote) {
-  return quote.rate_is_from_currency ? 1 / parseFloat(quote.rate) : quote.rate;
+  return quote.rate_is_from_currency
+    ? (1 / parseFloat(quote.rate)).toString()
+    : quote.rate;
+}
+
+export function toFixedString(
+  markets: Market[],
+  currencyID: string,
+  amount: string,
+) {
+  const market = markets.find((market) => market.id.includes(currencyID));
+  if (!market) return "";
+
+  let precision = 0;
+  if (market.base_currency === currencyID) precision = market.base_precision;
+  if (market.quote_currency === currencyID) precision = market.quote_precision;
+
+  return parseFloat(amount).toFixed(precision);
 }

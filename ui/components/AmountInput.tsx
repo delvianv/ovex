@@ -18,11 +18,8 @@ export default function AmountInput() {
   const [amount, setAmount] = useState("1");
   const setSourceAmount = useContext(SetSourceAmountContext);
 
-  const handleEndEditing = async () => {
-    const amountNumber = parseFloat(amount);
-
-    setSourceAmount(amountNumber);
-    setAmount(amountNumber.toString());
+  const handleEndEditing = () => {
+    setSourceAmount(parseFloat(amount));
   };
 
   return (

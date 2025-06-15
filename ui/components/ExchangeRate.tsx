@@ -1,8 +1,10 @@
+import { useContext } from "react";
 import { StyleSheet, Text } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
-import { getRate } from "@/lib/currency";
+import { MarketContext } from "@/lib/MarketProvider";
+import { getRate, toFixedString } from "@/lib/currency";
 import { Quote } from "@/lib/types";
 
 interface ExchangeProps {
@@ -16,9 +18,11 @@ export default function ExchangeRate({
   destCurrencyID,
   quote,
 }: ExchangeProps) {
+  const markets = useContext(MarketContext);
+
   return (
     <Text style={styles.text}>
-      1 {sourceCurrencyID} = {getRate(quote)} {destCurrencyID}
+      {`1 ${sourceCurrencyID} = ${toFixedString(markets, destCurrencyID, getRate(quote))} ${destCurrencyID}`}
     </Text>
   );
 }

@@ -10,6 +10,8 @@ export interface Market {
   id: string;
   base_currency: string;
   quote_currency: string;
+  base_precision: number;
+  quote_precision: number;
 }
 
 export interface Quote {
