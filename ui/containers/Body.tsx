@@ -15,13 +15,21 @@ export default function Body() {
 
   useEffect(() => {
     const getCurrencies = async () => {
-      const data = await fetchCurrencies();
-      setCurrencies(data);
+      try {
+        const data = await fetchCurrencies();
+        setCurrencies(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     const getMarkets = async () => {
-      const data = await fetchMarkets();
-      setMarkets(data);
+      try {
+        const data = await fetchMarkets();
+        setMarkets(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     getCurrencies();

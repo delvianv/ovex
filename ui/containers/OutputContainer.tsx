@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import { colors } from "@/constants/Colors";
 import { fontFamily, fontSize } from "@/constants/Fonts";
+import { fetchQuote } from "@/lib/API";
 import {
   DestAmountContext,
   SetDestAmountContext,
@@ -12,7 +13,6 @@ import {
   DestCurrencyContext,
   SourceCurrencyContext,
 } from "@/lib/CurrencyProvider";
-import { fetchQuote } from "@/lib/API";
 import { MarketContext } from "@/lib/MarketProvider";
 import { toFixedString } from "@/lib/currency";
 import { Quote } from "@/lib/types";
@@ -31,16 +31,20 @@ export default function OutputContainer() {
 
   useEffect(() => {
     const getQuote = async () => {
-      const quote = await fetchQuote(
-        markets,
-        sourceCurrencyID,
-        destCurrencyID,
-        sourceAmount,
-      );
-      if (!quote) return;
+      try {
+        const quote = await fetchQuote(
+          markets,
+          sourceCurrencyID,
+          destCurrencyID,
+          sourceAmount,
+        );
+        if (!quote) return;
 
-      setDestAmount(parseFloat(quote.to_amount));
-      setQuote(quote);
+        setDestAmount(parseFloat(quote.to_amount));
+        setQuote(quote);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     getQuote();

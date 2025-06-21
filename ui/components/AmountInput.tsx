@@ -21,7 +21,7 @@ export default function AmountInput() {
   const handleEndEditing = () => {
     const amountNumber = parseFloat(amount);
 
-    if (isNaN(amountNumber)) {
+    if (isNaN(amountNumber) || amountNumber === 0) {
       setSourceAmount(1);
     } else {
       setSourceAmount(amountNumber);
